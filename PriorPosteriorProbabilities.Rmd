@@ -1,0 +1,58 @@
+---
+output: html_document
+---
+
+```{r data generation, echo = FALSE, results = "hide"}
+require(exams)
+mu<-sample(1:10, 1)
+sd<-sample(1:3, 1)
+sd2<-sd^2
+x<-sample(1:5,1)
+p<-sample(c('prior', 'posterior'),1)
+if (p=='prior'){
+  condition = ""
+} else {
+  condition = " | x"
+}
+s<-sample(c('<','>'),1)
+if(s=='<'){
+  command = paste("pnorm(",x,",",mu,",",sd,")")
+  sol = pnorm(x,mu,sd)
+} else {
+  command = paste("1 - pnorm(",x,",",mu,",",sd,")")
+  sol = 1-pnorm(x,mu,sd)
+}
+```
+
+
+Question
+========
+
+Suppose that the `r p` distribution is $\theta `r condition` \sim N(`r mu`,`r sd2`)$. Calculate $\Pr(\theta `r s` `r x` `r condition`)$.
+
+
+Solution
+========
+Using `R`, we can use ``r command`` to give:  
+
+$\Pr(\theta `r s` `r x` `r condition`) = `r sol`$.
+ 
+Or we could work by hand, using the method of **normalisation**: for both sides of $\theta `r s` `r x`$ subtract the mean (`r mu`) and divide by the standard deviation (`r sd`):
+
+$\Pr(\theta `r s` `r x` `r condition`)
+= \Pr \left( \frac{\theta-`r mu`}{`r sd`} `r s` \frac{`r x`-`r mu`}{`r sd`} `r condition` \right)
+= \Pr(Z `r s` `r (x - mu)/(sd)`)$,
+
+where $Z = \frac{\theta - `r mu`}{`r sd`}`r condition`$ so that $Z \sim N(0,1)$.
+
+To get the final answer without the use of R, we would use statistical tables.
+
+
+
+
+Meta-information
+================
+extype: num
+exsolution: `r sol`
+exname: prior distributions
+extol: 0.01

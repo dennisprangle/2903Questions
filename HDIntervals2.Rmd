@@ -1,0 +1,36 @@
+---
+output: html_document
+---
+```{r data generation, echo = FALSE, results = "hide"}
+x<-round(runif(5,1,10),2)
+xbar<-round(mean(x),2)
+n=5
+t=0.1
+a<-round(xbar-(1.96)/sqrt(n*t),2)
+b<-round(xbar+(1.96)/sqrt(n*t),2)
+```
+
+Question
+========
+Suppose that we have a randomly generated set of data: `r x`. This data comes from a $N(\mu,\frac{1}{\tau})$ distribution and we are told that $\mu=5$ and $\tau=0.1$. Assuming vague prior knowledge, the posterior distribution is $\mu|\textbf{x} \sim N(\bar{x},\frac{1}{n\tau})$. Determine the $100(1-\alpha)$% HDI for $\mu$.
+
+Hence calculate the 95% HDI for $\mu$.
+
+Solution
+========
+The HDI is $[\bar{x}-c,\bar{x}+c]$. $\Pr(\mu|x>b)=\frac{\alpha}{2}$, $Z \sim N(0,1)$.
+
+This distribution is bell-shaped and so the HDI takes the form $C_{\alpha}(a,b)$ with end points $$a=\bar{x}-\frac{Z_{\frac{\alpha}{2}}}{\sqrt{n\tau}} \text{   and   } b=\bar{x}+\frac{Z_{\frac{\alpha}{2}}}{\sqrt{n\tau}}$$
+where $Z_{\alpha}$ is the upper $\alpha$-quantile of the $N(0,1)$ distribution. 
+
+Therefore the $100(1-\alpha)$% HDI for $\mu$ is $C{\alpha}(`r xbar`- \frac{Z_{\frac{\alpha}{2}}}{\sqrt{`r n``r t`}}, `r xbar` + \frac{Z_{\frac{\alpha}{2}}}{\sqrt{`r n``r t`}})$
+
+
+Hence the 95% HDI for $\mu$ is $C_{\alpha}(`r a`,`r b`)$.
+
+Meta-information
+================
+extype: num
+exsolution: 1
+exname: highest density intervals 2
+extol: 0.01

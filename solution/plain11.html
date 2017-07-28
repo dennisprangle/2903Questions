@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+<title></title>
+<style type="text/css">
+body{font-family:Arial;}
+</style>
+<meta charset="UTF-8">
+<script type="text/javascript"   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+<script type="text/javascript"   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+</head>
+
+<body>
+<h2></h2>
+
+<ol>
+<li>
+<h4>Solution</h4>
+<p>First we must calculate the <strong>posterior probabilities</strong>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">∣</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">∣</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></math> for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>x</mi><mn>2</mn></msub><mo>,</mo><msub><mi>x</mi><mn>3</mn></msub><mo>.</mo></mrow></math> Since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>θ</mi><mn>1</mn></msub><mo>+</mo><msub><mi>θ</mi><mn>2</mn></msub><mo>=</mo><mn>1</mn></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>θ</mi><mn>1</mn></msub></mrow></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>θ</mi><mn>2</mn></msub></mrow></math> form a partition, and so we can use <strong>Bayes Theorem</strong> as follows. We have:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">∣</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow><mrow><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mn>0</mn><mo>.</mo><mn>94</mn><mo>*</mo><mn>0</mn><mo>.</mo><mn>4</mn></mrow><mrow><mn>0</mn><mo>.</mo><mn>94</mn><mo>*</mo><mn>0</mn><mo>.</mo><mn>4</mn><mo>+</mo><mn>0</mn><mo>.</mo><mn>28</mn><mo>*</mo><mn>0</mn><mo>.</mo><mn>6</mn></mrow></mfrac><mo>=</mo><mn>0</mn><mo>.</mo><mn>6912</mn><mo>,</mo><mtext mathvariant="normal">to 4 d.p.</mtext></mrow></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">∣</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow><mrow><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mn>0</mn><mo>.</mo><mn>04</mn><mo>*</mo><mn>0</mn><mo>.</mo><mn>4</mn></mrow><mrow><mn>0</mn><mo>.</mo><mn>04</mn><mo>*</mo><mn>0</mn><mo>.</mo><mn>4</mn><mo>+</mo><mn>0</mn><mo>.</mo><mn>43</mn><mo>*</mo><mn>0</mn><mo>.</mo><mn>6</mn></mrow></mfrac><mo>=</mo><mn>0</mn><mo>.</mo><mn>0584</mn><mo>,</mo><mtext mathvariant="normal">to 4 d.p.</mtext></mrow></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">∣</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow><mrow><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><mrow><mn>0</mn><mo>.</mo><mn>02</mn><mo>*</mo><mn>0</mn><mo>.</mo><mn>4</mn></mrow><mrow><mn>0</mn><mo>.</mo><mn>02</mn><mo>*</mo><mn>0</mn><mo>.</mo><mn>4</mn><mo>+</mo><mn>0</mn><mo>.</mo><mn>29</mn><mo>*</mo><mn>0</mn><mo>.</mo><mn>6</mn></mrow></mfrac><mo>=</mo><mn>0</mn><mo>.</mo><mn>044</mn><mo>,</mo><mtext mathvariant="normal">to 4 d.p.</mtext></mrow></math></p>
+<p>It follows that:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">∣</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">∣</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mo>.</mo><mn>3088</mn></mrow></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">∣</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">∣</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mo>.</mo><mn>9416</mn></mrow></math><br /><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">∣</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mn>1</mn><mo>−</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">∣</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn><mo>.</mo><mn>956</mn></mrow></math></p>
+<p>And so we obtain the posterior distributions <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>Pr</mi><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">∣</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></math> given in the table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>x</mi><mn>1</mn></msub></mrow></math></th>
+<th align="left"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>x</mi><mn>2</mn></msub></mrow></math></th>
+<th align="left">x3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">01</td>
+<td align="left">d</td>
+<td align="left">e</td>
+<td align="left">f</td>
+</tr>
+<tr class="even">
+<td align="left">02</td>
+<td align="left">a</td>
+<td align="left">b</td>
+<td align="left">c</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>x</mi><mn>1</mn></msub></mrow></math></th>
+<th align="right"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>x</mi><mn>2</mn></msub></mrow></math></th>
+<th align="right"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>x</mi><mn>3</mn></msub></mrow></math></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>θ</mi><mn>1</mn></msub></mrow></math>: their heart condition</td>
+<td align="right"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>0</mn><mo>.</mo><mn>6912</mn></mrow></math></td>
+<td align="right"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>0</mn><mo>.</mo><mn>0584</mn></mrow></math></td>
+<td align="right"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>0</mn><mo>.</mo><mn>044</mn></mrow></math></td>
+</tr>
+<tr class="even">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>θ</mi><mn>2</mn></msub></mrow></math>: their diabetes</td>
+<td align="right"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>0</mn><mo>.</mo><mn>3088</mn></mrow></math></td>
+<td align="right"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>0</mn><mo>.</mo><mn>9416</mn></mrow></math></td>
+<td align="right"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>0</mn><mo>.</mo><mn>956</mn></mrow></math></td>
+</tr>
+</tbody>
+</table>
+<p>Observing this table we can see that if weight loss only is observed, the most plausible problem is their heart condition, if feeling dizzy only is observed, the most plausible problem is their diabetes, and if weight loss and feeling dizzy are observed, the most plausible problem is their diabetes. From these results, we can construct a diagnostic rule:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><strong>Symptom</strong></th>
+<th align="left"><strong>Diagnosis</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">weight loss only, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow></math>:</td>
+<td align="left">their heart condition, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>θ</mi><mn>1</mn></msub></mrow></math></td>
+</tr>
+<tr class="even">
+<td align="left">feeling dizzy only, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow></math>:</td>
+<td align="left">their diabetes, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>θ</mi><mn>2</mn></msub></mrow></math></td>
+</tr>
+<tr class="odd">
+<td align="left">weight loss and feeling dizzy, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">)</mo></mrow></math>:</td>
+<td align="left">their diabetes, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>θ</mi><mn>2</mn></msub></mrow></math></td>
+</tr>
+</tbody>
+</table>
+<p>If we were to use this diagnostic rule repeatedly, then the probability of misdiagnosing the problem is:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable><mtr><mtd columnalign="right"><mi>Pr</mi><mo stretchy="false">(</mo><mtext mathvariant="normal">Misdiagnosis</mtext><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mn>1</mn><mo>−</mo><mo stretchy="false">(</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo>,</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>2</mn></msub><mo>,</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>2</mn></msub><mo>,</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mn>1</mn><mo>−</mo><mo stretchy="false">(</mo><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>1</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>2</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mi>Pr</mi><mo stretchy="false">(</mo><mi>X</mi><mo>=</mo><msub><mi>x</mi><mn>3</mn></msub><mo stretchy="false">∣</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mi>Pr</mi><mo stretchy="false">(</mo><msub><mi>θ</mi><mn>2</mn></msub><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mn>1</mn><mo>−</mo><mo stretchy="false">(</mo><mn>0</mn><mo>.</mo><mn>94</mn><mo>×</mo><mn>0</mn><mo>.</mo><mn>4</mn><mo>+</mo><mn>0</mn><mo>.</mo><mn>43</mn><mo>×</mo><mn>0</mn><mo>.</mo><mn>6</mn><mo>+</mo><mn>0</mn><mo>.</mo><mn>29</mn><mo>×</mo><mn>0</mn><mo>.</mo><mn>6</mn><mo stretchy="false">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mn>1</mn><mo>−</mo><mn>0</mn><mo>.</mo><mn>808</mn></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mn>0</mn><mo>.</mo><mn>192</mn></mtd></mtr></mtable></mrow></math></p>
+<p>And so about 19.2% of diagnoses will be misdiagnoses.</p>
+<br/>
+</li>
+</ol>
+
+</body>
+</html>

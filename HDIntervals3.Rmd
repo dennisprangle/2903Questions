@@ -1,0 +1,118 @@
+---
+output: html_document
+---
+```{r data generation, echo = FALSE, results = "hide"}
+a<-sample(c(2:5),1)
+b<-sample(c(10:30),1)
+
+d<-sample(c('g','b'),1)
+
+dis<- if (d=='g'){
+  paste("$Ga(",a,",",b,")$")
+} else if (d=='b'){
+  paste("$Be(",a,",",b,")$")
+}
+
+x1<-seq(0,1,length=1000)
+x2<-seq(0,5,length=1000)
+x<- if (d=='g'){
+  x2
+} else if (d=='b'){
+  x1
+}
+
+dis2<-if(d=='b'){
+  dbeta(x1,a,b)
+} else if(d=='g'){
+  dgamma(x2,a,b)
+}
+
+dens<- if (d=='g'){
+  paste("\\pi(\\theta|\\textbf{x})=",round((1/factorial(a-1))*b^a,0),"\\theta^{",a-1,"}e^{-",b,"\\theta}, \\theta > 0.")
+} else if (d=='b'){
+  paste("\\pi(\\theta|\\textbf{x})=",1/((factorial(a-1)*factorial(b-1))/factorial(a+b-1)),"\\theta^",a-1,"(1-\\theta)^",b-1,", 0 < \\theta < 1.")
+}
+
+func<- if(d=='g'){
+  paste("
+        g=function(a){ 
+
+        b=qgamma(0.95+pgamma(a,",a,",",b,"),",a,",",b,")
+
+        (dgamma(a,",a,",",b,")-dgamma(b,",a,",",b,"))^2
+
+        } 
+
+        res=optimise(g, lower=0, upper=qgamma(0.025,",a,",",b,")
+
+        a=res$minimum
+
+        b=qgamma(0.95+pgamma(a,",a,",",b,"),",a,",",b,")")
+} else if (d=='b'){
+   paste("
+        g=function(a){ 
+
+        b=qbeta(0.95+pbeta(a,",a,",",b,"),",a,",",b,")
+
+        (dbeta(a,",a,",",b,")-dbeta(b,",a,",",b,"))^2
+
+        }
+
+        res=optimise(g, lower=0, upper=qbeta(0.025,",a,",",b,")
+
+        a=res$minimum
+
+        b=qbeta(0.95+pbeta(a,",a,",",b,"),",a,",",b,")
+        ")
+}
+
+   f=function(c1){
+d1=qgamma(0.95+pgamma(c1,a,b),a,b)
+(dgamma(c1,a,b)-dgamma(d1,a,b))^2
+   }
+res=optimise(f, lower=0, upper=qgamma(0.025,a,b))
+c1=res$minimum 
+d1=qgamma(0.95+pgamma(c1,a,b),a,b)
+
+  f2=function(c2){ 
+d2=qbeta(0.95+pbeta(c2,a,b),a,b)
+(dbeta(c2,a,b)-dbeta(d2,a,b))^2 
+}
+res=optimize(f2, lower=0, upper=qbeta(0.025,a,b))
+c2=res$minimum 
+d2=qbeta(0.95+pbeta(c2,a,b),a,b)
+
+sol <- if (d=='g'){
+paste("and gives $a$=",round(c1,4), "and $b$=",round(d1,4), ", thus the 95% HDI is (",round(c1,4),",",round(d1,4),").")
+} else if (d=='b'){
+paste("and gives $a$=",round(c2,4), "and $b$=",round(d2,4), ", thus the 95% HDI is (",round(c2,4),",",round(d2,4),").")
+}
+```
+
+Question
+========
+Suppose that a posterior distribution for $\theta$ is a `r dis` distribution, with probability density function $$`r dens`$$
+
+A plot of the distribution is given below. Determine the 95% HDI for $\theta$.
+
+```{r density_plots, echo = FALSE, results = "hide", fig.height = 4, fig.width = 5, fig.path = "", fig.cap = ""}
+plot(x,dis2,type='l',xlab='theta',ylab='Density') 
+```
+
+
+Solution
+========
+The HDI must take the form $c_{\alpha}(a,b)$ if it is to include the values of $\theta$ with the highest probability density. The end-points a and b must satisfy .Unfortunately, there is no simple analytical solution to these equations and so numerical methods have to be employed to find $a$ and $b$.
+
+The `R` code to determine $a$ and $b$ is 
+
+`r func`
+
+`r sol`
+
+Meta-information
+================
+extype: num
+exsolution: 1
+exname: highest density intervals 3
+extol: 0.01

@@ -1,0 +1,66 @@
+---
+output: html_document
+---
+```{r data generation, echo = FALSE, results = "hide"}
+require(exams)
+#Create some context for the question
+m <- sample(c("the Caucasus Mountains","the Swiss Alps","the Nepalese Himalayas", "the Peruvian Andes"),1)
+
+
+#Generate some random data
+x <- round(runif(5,-30,15),1)
+mu <- sample(c(-20:0),1)
+sd <- sample(c(2:6),1)
+mu2 <-sample(c(-20,5),1)
+t <- round(runif(1,0.01,0.1),2)
+B <- round((sd*mu2+5*t*round(mean(x),2))/(sd+5*t),2)
+D <- round((sd+5*t),2)
+
+#Now generate some questions
+questions <- solutions <- explanations <- rep(list(""), 4)
+type <- rep(list("schoice"), 4)
+
+questions[[1]] <- print("It is assumed that the data are independent realisations of a random variable $X_{i}|\\mu\\sim N(\\mu,1/\\tau)$. Explain why $N(\\mu,1/\\tau)$ is a reasonable distribution to use.")
+solutions[[1]] <- print("The data is continuous and it can take positive and negative values, so we need to choose a distribution that can reflect these properties. The normal distribution satisfies this.")
+
+questions[[2]] <- print("Derive the likelihood function for this model.")
+solutions[[2]] <- paste("The likelihood function is $f(\\underline{x}|\\mu,\\tau)=\\tau^{\\frac{5}{2}}2\\pi^{\\frac{-5}{2}}exp\\left\\{\\frac{\\tau}{2}\\overset{5}{\\underset{i=1}{\\sum}}(x_{i}-\\mu)^{2}\\right\\}.$")
+
+questions[[3]] <- paste("An expert in the region estimates that X is related to $\\mu$ by $X|\\mu \\sim N(\\mu,\\frac{1}{",t,"})$. An $N(",mu2,",\\frac{1}{",sd,"})$ prior distribution is used for $\\mu$. Derive the posterior distribution for $\\mu.$")
+solutions[[3]] <- paste("We can see that $n=5, \\bar{x}=",round(mean(x),2),",d=",sd,", b=", mu2,",$ and $\\tau=",t," .$ Hence we can calculate $B$ and $D$ with the formulae provided,  $B$=",B,", and $D$=",D,", to 2 d.p. \ Therefore the posterior distribution for $\\mu$ is $N(",B,",\\frac{1}{",D,"})$.")
+
+questions[[4]] <- print("Find the prior and posterior mean values for $\\mu$.")
+solutions[[4]] <- paste("Clearly, the prior mean value for $\\mu$ is $E[X]=$",mu2," and the posterior mean value is $E[X]=$",B,".")
+
+questions[[5]] <- paste("You also want to investigate your data without the use of a conjugate prior. Your colleague suggests using a $Be(",mu2,",",sd,")$ distribution. Why would this be a bad choice?")
+solutions[[5]] <- print("The Beta distribution is a bad choice for this data because it is restricted to the interval [0,1] so it would not capture our range of values. On top of this, the Beta distribution can not model negative data.")
+```
+
+Question
+========
+  You are interested in temperature differences in a remote region of `r m`. The temperature is measured at various locations in the region, (in °C), and the following data is observed: `r x`  
+  
+_Hint: The probability mass function for a normal distribution is_  
+
+_$$f(x|\mu,\tau)=\left(\frac{\tau}{2\pi}\right)^{\frac{1}{2}}exp\left\{-\frac{\tau}{2}\left(x-\mu\right)^{2}\right\}$$_  
+
+_where $-\infty<x<\infty$, $-\infty<\mu<\infty$ and $\tau>0$._
+
+_If $X_{1},X_{2},...,X_{n}$ are independent $N(\mu,\frac{1}{\tau})$ random variables and $\mu$ has a prior distribution $N(b,\frac{1}{d})$ then the posterior distribution for $\mu$ is $N(B,\frac{1}{D})$, where $B=\frac{db+n\tau\underline{x}}{d+n\tau}$ and $D=d+n\tau.$_
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(paste(unlist(questions)), markup = "markdown")
+```
+
+Solution
+========
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(paste(unlist(solutions)), markup = "markdown")
+```
+  
+  Meta-information
+================
+  extype: num
+exsolution: 1
+exname: normal prior
+extol: 0.01

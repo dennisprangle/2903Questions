@@ -1,0 +1,36 @@
+```{r data generation, echo = FALSE, results = "hide"}
+a<-sample(c(5:7),1)
+rand_vect_cont <- function(N, M, sd = 1, pos.only = TRUE) {
+  vec <- abs(rnorm(N, M/N, sd))
+  vec / sum(vec) * M
+}
+v<-round(rand_vect_cont(12,1),4)
+m<-max(v)
+po<-match(m,v)-1
+m2<-max(v[(po-2)],v[(po)])
+po2<-match(m2,v)-1
+int<-paste("[",min(po,po2),",",max(po,po2),"]")
+per<-100*(m+m2)
+```
+
+Question
+========
+There were `r a` significant events in the space of a year. A posterior predictive distribution for $Y$, the number of events in 2016, is shown below:
+
+| $y$          |0|1|2|3|4|5|6|7|8|9|10|11|
+|--------------|---|---|---|---|---|---|---|---|---|---|---|---|
+|$f(y|x=`r a`)$|`r v[1]`|`r v[2]`|`r v[3]`|`r v[4]`|`r v[5]`|`r v[6]`|`r v[7]`|`r v[8]`|`r v[9]`|`r v[10]`|`r v[11]`|`r v[12]`|
+
+Find a 95% prediction interval for $Y$.
+
+Solution
+========
+To obtain a 95% prediction interval for $Y$, we must start with the largest value, `r m`, which corresponds to the number `r po`. We then add to this either the number to the left hand side, or the number to the right, depending on which is larger. Here, `r m2` is the largest so our new interval is `r int`, which covers `r per`% of the data. We then repeat this process until we have an interval that covers $\approx$ 95% of the data. There can be more than one 95% prediction interval.
+  
+Meta-information
+================
+extype: num
+exsolution: 1
+exname: discrete HDI
+extol: 0.01
+  

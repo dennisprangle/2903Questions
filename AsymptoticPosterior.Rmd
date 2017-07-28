@@ -1,0 +1,135 @@
+```{r data generation, echo = FALSE, results = "hide"}
+d<-sample(c('e','bi','g'),1)
+
+dis<-if(d=='e'){
+  print("an exponential")
+} else if (d=='bi'){
+  print("a binomial")
+} else if (d=='g'){
+  print("a gamma")
+}
+
+dis2<-if(d=='e'){
+  print("Exp(\\theta)")
+} else if(d=='bi'){
+  print("Bin(k,\\theta)")
+} else if(d=='g'){
+  print("Ga(\\alpha,\\theta)")
+}
+
+jp<-if(d=='e'){
+  print("$$\\begin{aligned}
+        \\pi(\\theta)&\\propto I(\\theta)^{\\frac{1}{2}} \\nonumber \\\\
+        &\\propto \\frac{\\sqrt{n}}{\\theta} \\nonumber \\\\
+        &\\propto \\frac{1}{\\theta}, \\text{\\vspace{1cm} for $\\theta$ > 0}. \\nonumber
+        \\end{aligned}$$")
+} else if (d=='bi'){
+  print("$$\\begin{aligned}
+        \\pi(\\theta)&\\propto I(\\theta)^{\\frac{1}{2}} \\nonumber \\\\
+        &\\propto \\frac{\\sqrt{nk}}{\\theta^{\\frac{1}{2}}(1-\\theta)^{\\frac{1}{2}}} \\nonumber \\\\
+        &\\propto \\theta^{-\\frac{1}{2}}(1-\\theta)^{-\\frac{1}{2}} \\nonumber
+        \\end{aligned}$$")
+} else if(d=='g'){
+  print("$$\\begin{aligned}
+        \\pi(\\theta)&\\propto I(\\theta)^{\\frac{1}{2}} \\nonumber \\\\
+        &\\propto \\frac{\\sqrt{\\alpha}}{\\theta} \\nonumber \\\\
+        &\\propto \\frac{1}{\\theta} \\nonumber
+        \\end{aligned}$$")
+}
+
+dif<-if(d=='e'){
+  print("$$\\begin{aligned}
+        \\frac{dL}{d\\theta}&=\\frac{n}{\\theta}-n\\bar{x} \\nonumber \\\\
+        J(\\theta)&=-\\frac{d^2L}{d\\theta^2}=\\frac{n}{\\theta^2}. \\nonumber \\\\
+        \\end{aligned}$$")
+} else if(d=='bi'){
+  print("$$\\begin{aligned}
+        \\frac{dL}{d\\theta}&=\\frac{n\\bar{x}}{\\theta}-\\frac{n(k-\\bar{x})}{1-\\theta} \\nonumber \\\\
+        J(\\theta)&=-\\frac{d^2L}{d\\theta^2}=\\frac{n\\bar{x}}{\\theta^2}-\\frac{n(k-\\bar{x})}{(1-\\theta)^2}. \\nonumber \\\\
+        \\end{aligned}$$")
+} else if(d=='g'){
+  print("$$\\begin{aligned}
+        \\frac{dL}{d\\theta}&=\\frac{\\alpha}{\\theta}-\\sum X_i \\nonumber \\\\
+        J(\\theta)&=-\\frac{d^2L}{d\\theta^2}=\\frac{\\alpha}{\\theta^2}. \\nonumber \\\\
+        \\end{aligned}$$")
+}
+
+ex<-if(d=='e'){
+  print("$$\\begin{aligned}
+        \\frac{dL}{d\\theta}&=\\frac{n}{\\theta}-n\\bar{x}=0 \\nonumber \\\\
+        &\\implies \\hat{\\theta}=\\frac{1}{\\bar{x}}.\\nonumber \\\\
+        \\end{aligned}$$")
+} else if(d=='bi'){
+  print("$$\\begin{aligned}
+        \\frac{dL}{d\\theta}&=\\frac{n\\bar{x}}{\\theta}-\\frac{n(k-\\bar{x})}{1-\\theta}=0 \\nonumber \\\\
+        &\\implies \\hat{\\theta}=\\frac{\\bar{x}}{k}. \\nonumber \\\\
+        \\end{aligned}$$")
+} else if(d=='g'){
+  print("$$\\begin{aligned}
+        \\frac{dL}{d\\theta}&=\\frac{\\alpha}{\\theta}-\\sum X_i=0 \\nonumber \\\\
+        &\\implies \\hat{\\theta}=\\frac{\\alpha}{\\sum X_i}. \\nonumber \\\\
+        \\end{aligned}$$")
+}
+
+j<-if(d=='e'){
+  print("$$\\begin{aligned}
+        &\\implies J(\\hat{\\theta})=\\frac{n}{\\hat{\\theta}} \\nonumber \\\\
+        &\\implies J(\\hat{\\theta})=\\frac{1}{n\\bar{x}^2}.\\nonumber \\\\
+        \\end{aligned}$$")
+} else if(d=='bi'){
+  print("$$\\begin{aligned}
+        &\\implies J(\\hat{\\theta})=\\frac{n\\bar{x}}{\\hat{\\theta}^2}-\\frac{n(k-\\bar{x})}{(1-\\hat{\\theta})^2} \\nonumber \\\\
+        &\\implies J(\\hat{\\theta})=\\frac{n\\bar{x}}{(\\frac{\\bar{x}}{k})^2}-\\frac{n(k-\\bar{x}}{(1-\\frac{\\bar{x}}{k}^2)^2}. \\nonumber \\\\
+        \\end{aligned}$$")
+} else if(d=='g'){
+  print("$$\\begin{aligned}
+        &\\implies J(\\hat{\\theta})=\\frac{\\alpha}{\\hat{\\theta}^2} \\nonumber \\\\
+        &\\implies J(\\hat{\\theta})=\\frac{\\alpha}{\\frac{\\alpha}{\\sum X_i}^2}. \\nonumber \\\\
+        \\end{aligned}$$")
+}
+
+mu<-if(d=='e'){
+  print("$\\frac{1}{\\bar{x}}$")
+} else if(d=='bi'){
+  print("$\\frac{\\bar{x}}{k}$")
+} else if(d=='g'){
+  print("$\\frac{\\alpha}{\\sum X_i}$")
+}
+
+sd<-if(d=='e'){
+  print("$\\frac{1}{n\\bar{x}^2}$")
+} else if(d=='bi'){
+  print("$\\frac{n\\bar{x}}{(\\frac{\\bar{x}}{k})^2}-\\frac{n(k-\\bar{x}}{(1-\\frac{\\bar{x}}{k}^2)^2}$")
+} else if(d=='g'){
+  print("$\\frac{\\alpha}{\\frac{\\alpha}{\\sum X_i}^2}$")
+}
+```
+
+Question
+========
+
+Suppose we have a random sample from `r dis` distribution, that is, $X_i|\theta \sim `r dis2`$. Determine the asymptotic posterior distribution for this model.
+
+_Hint: We will use our answers from the Jeffreys Prior question, so it would make sense to attempt that question first so we can refer to our answers._
+
+Solution
+========
+
+_Recall: The observed information we need to determine the asymptotic posterior, $J(\hat{\theta})$, is related to Fisher's information which we used in the calculation of Jeffreys Prior. The relationship is $I(\theta)=E[J(\hat{\theta})]$._
+
+From our Jeffreys Prior question, we have: `r dif`
+
+Our maximum likelihood estimate for this distribution is: `r ex`
+
+and so 
+
+`r j`
+
+Therefore, for large n, the (approximate) posterior distribution for $\theta$ is $\theta$|$\bar{x}$$\sim$$N\Big($ `r mu`,`r sd` $\Big)$.
+
+Meta-information
+================
+extype: num
+exsolution: 1
+exname: asymptotic prior
+extol: 0.01

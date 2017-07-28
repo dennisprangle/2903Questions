@@ -1,0 +1,100 @@
+---
+output: html_document
+---
+```{r data generation, echo = FALSE, results = "hide"}
+a<-sample(c(5:50),1)
+
+b<-sample(c(1:15),1)
+
+c<-sample(c(1:10),1)
+
+x1<-seq(0,1,length=1000)
+
+x2<-seq(0,5,length=1000)
+
+d<-sample(c('b','g','e'),1)
+
+dis <- if(d=='b'){
+  paste("$Be(1,",a,")$")
+} else if (d=='g'){
+  paste("$Ga(1,",b,")$")
+} else if (d=='e'){
+  paste("$Exp(",c,")$")
+}
+
+x<-if(d=='b'){
+  x1
+} else {
+  x2
+}
+
+dis2<-if(d=='b'){
+  dbeta(x1,1,a)
+} else if(d=='g'){
+  dgamma(x2,1,b)
+} else if(d=='e'){
+  dexp(x2,c)
+}
+
+dens <- if(d=='b'){
+  paste(a,"(1-\\theta)^{",a-1,"}, 0 < \\theta < 1.")
+} else if (d=='g'){
+  paste(b,"e^{-",b,"\\theta}, \\theta > 0.")
+} else if (d=='e'){
+  paste(c,"e^{-",c,"\\theta}, \\theta > 0.")
+}
+
+dens2 <- if(d=='b'){
+  paste(a,"(1-\\theta)^{",a-1,"}")
+} else if (d=='g'){
+  paste(b,"e^{-",b,"\\theta}")
+} else if (d=='e'){
+  paste(c,"e^{-",c,"\\theta}")
+}
+
+sol <- if(d=='b'){
+  paste("\\int^b_{0}",dens2,"d\\theta=[-(1-\\theta)^{",a,"}]^{b}_{0}=1-(1-b)^{",a,"}")
+} else if(d=='g'){
+  paste("\\int^b_{0}",dens2,"d\\theta=[-e^{",-b,"\\theta}]^b_0=-e^{",-b,"b}+e^0=1-e^{",-b,"b}")
+} else if (d=='e'){
+  paste("\\int^b_{0}",dens2,"d\\theta=[-e^{",-c,"\\theta}]^b_0=-e^{",-c,"b}+e^0=1-e^{",-c,"b}")
+}
+
+sol2 <- if (d=='b'){
+  paste("1-(1-b)^{",a,"}=1-\\alpha \\implies 1-b=\\alpha^{\\frac{1}{",a,"}} \\implies b=1-\\alpha^{\\frac{1}{",a,"}}")
+} else if(d=='g'){
+  paste("1-e^{",-b,"b}=1-\\alpha \\implies e^{",-b,"b}=\\alpha \\implies",-b,"b=\\log\\alpha \\implies b=\\frac{1}{",-b,"}\\log\\alpha")
+} else if(d=='e'){
+  paste("1-e^{",-c,"b}=1-\\alpha \\implies e^{",-c,"b}=\\alpha \\implies",-c,"b=\\log\\alpha \\implies b=\\frac{1}{",-c,"}\\log\\alpha")
+}
+
+sol3 <- if(d=='b'){
+  paste("(0,1-(0.05^{\\frac{1}{",a,"}})) \\implies (0,",round(1-(0.05)^(1/a),3),")")
+} else if (d=='g'){
+  paste("(0,\\frac{1}{",-b,"}\\log(0.05)) \\implies (0,",round((-1/b)*log(0.05),3),")")
+} else if (d=='e'){
+  paste("(0,\\frac{1}{",-c,"}\\log(0.05)) \\implies (0,",round((-1/c)*log(0.05),3),")")
+}
+```
+
+Question
+========
+Suppose that the posterior distribution for $\theta$ is `r dis` with probability density function $$\pi(\theta|\textbf{x})=`r dens`$$
+A plot of this distribution is given below. Determine the $100(1-\alpha)\%$ HDI for $\theta$. 
+
+Hence calculate the 95% HDI for $\theta$.
+
+```{r density_plots, echo = FALSE, results = "hide", fig.height = 4, fig.width = 5, fig.path = "", fig.cap = ""}
+plot(x,dis2,type='l',xlab='theta',ylab='Density') 
+```
+
+Solution
+========
+The HDI must include those values of $\theta$ with highest posterior density and so must take the form $C_{\alpha}(0,b)$. The end point must satisfy $$\int^b_{0} `r dens2`d\theta=1-\alpha.$$ Now $$`r sol`.$$ Hence $$`r sol2`.$$ Therefore, we can work out the 95% HDI for $\theta$ to be $$`r sol3`.$$
+
+Meta-information
+================
+extype: num
+exsolution: 1
+exname: highest density intervals
+extol: 0.01

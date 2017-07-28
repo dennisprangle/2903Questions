@@ -1,0 +1,53 @@
+---
+output: html_document
+---
+
+```{r data generation, echo = FALSE, results = "hide"}
+require(exams)
+#Generate the questions
+questions <- solutions <- explanations <- rep(list(""), 7)
+type <- rep(list("schoice"), 7)
+
+questions[[1]] <- print("State the definition of a **conjugate prior**.")
+solutions[[1]] <- print("A family $\\Im$ of prior distributions for $\\theta$ is said to be conjugate to $f(\\textbf{x}|\\theta)$ if for every prior distribution $\\pi(\\theta) \\in \\Im$, the posterior distribution $\\pi(\\theta|\\textbf{x})$ is also in $\\Im$.")
+
+questions[[2]] <- print("State Bayes theorem for _continuous_ $\\theta$.")
+solutions[[2]] <- print("The posterior probability (density) function for $\\theta$ is $$\\pi(\\theta|\\textbf{x})=\\frac{\\pi(\\theta)f(\\textbf{x}|\\theta)}{f(\\textbf{x})}$$ where $$f(\\textbf{x})=\\int_{\\Theta}\\pi(\\theta)f(\\textbf{x}|\\theta)d\\theta$$ for continuous $\\theta$.")
+
+questions[[3]] <- print("State Bayes theorem for _discrete_ $\\theta$.")
+solutions[[3]] <- print("The posterior probability (density) function for $\\theta$ is $$\\pi(\\theta|\\textbf{x})=\\frac{\\pi(\\theta)f(\\textbf{x}|\\theta)}{f(\\textbf{x})}$$ where $$f(\\textbf{x})=\\sum_{\\Theta}\\pi(\\theta)f(\\textbf{x})|\\theta)$$ for discrete $\\theta$.")
+
+questions[[4]] <- print("Define the **likelihood function**.")
+solutions[[4]] <- print("If $X_1,X_2,...X_n$ are independent and identically distributed observations (random sample), with pdf $f_X(X|\\theta)$, then the likelihood is defined as $$f(\\textbf{x}|\\theta)=\\prod_{i=1}^{n}f_X(X_i|\\theta).$$")
+
+questions[[5]] <- print("State the definition of a **prior distribution**.")
+solutions[[5]] <- print("A prior distribution $\\pi(\\theta)$ is the probability distribution that describes our beliefs about an unknown quantity, before we observe any data.")
+
+questions[[6]] <- print("State the definition of a **posterior distribution**.")
+solutions[[6]] <- print("The posterior probability (density) function for $\\theta$ is $$\\pi(\\theta|\\textbf{x})=\\frac{\\pi(\\theta)f(\\textbf{x}|\\theta)}{f(\\textbf{x})}$$ where $$f(\\textbf{x})=\\begin{cases}
+\\int_{\\Theta}\\pi(\\theta)f(\\textbf{x}|\\theta)d\\theta, & \\text{for continuous $\\theta$.} \\\\
+\\sum_{\\Theta}\\pi(\\theta)f(\\textbf{x})|\\theta), & \\text{for discrete $\\theta$.}
+\\end{cases}$$ This represents our beliefs after we have observed some data.")
+
+questions[[7]] <- print("State the equation for the **normalising constant** for Bayes theorem.")
+solutions[[7]] <- print("The normalising constant is the constant we must multiply the probability function by to ensure the area under the graph is one, to obtain the probability density function. The equation for the normalising constant for Bayes theorem is $$f(\\textbf{x})=\\int_{\\Theta}f(\\textbf{x}|\\theta)\\pi(\\theta)d\\theta=\\int_{\\Theta}\\pi(\\theta|\\textbf{x})d\\theta$$")
+```
+
+Question
+========
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(paste(unlist(questions)), markup = "markdown")
+```
+
+Solution
+========
+```{r answerlist, echo = FALSE, results = "asis"}
+answerlist(paste(unlist(solutions)), markup = "markdown")
+```
+
+Meta-information
+================
+extype: num
+exsolution: 1
+exname: bayesian definitions
+extol: 0.01

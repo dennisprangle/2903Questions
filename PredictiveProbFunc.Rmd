@@ -1,0 +1,73 @@
+```{r data generation, echo = FALSE, results = "hide"}
+d<-sample(c("p","e"),1)
+
+d="p"
+
+dis<-if(d=="p"){
+  print("$X|\\theta\\sim Po(\\theta)$")
+} else if (d=="e"){
+  print("$X|\\theta\\sim Exp(\\theta)$")
+}
+
+a<-sample(c(7:10),1)
+b<-sample(c(2:4),1)
+c<-round(runif(1,0.1,0.4),1)
+e<-1-c
+f<-sample(c(6,7,3,8),1)
+
+l<-if(d=="p"){
+  paste("$$f(X=",f,"|\\theta)=\\frac{\\theta^",f,"e^{-\\theta}}{",f,"!}=
+\\begin{cases}
+",round(((a^f)*exp(-a))/factorial(f),3),", \\text{if $\\theta=$",a,"} \\\\
+",round(((b^f)*exp(-b))/factorial(f),3),", \\text{if $\\theta=$",b,"} \\\\
+\\end{cases}$$")
+} else {
+  print("l")
+}
+
+questions <- solutions <- explanations <- rep(list(""), 2)
+type <- rep(list("schoice"), 2)
+
+questions[[1]]<-paste("Suppose that ",f," floods are observed in 2017. Calculate the probability of busy activity, and hence state the probability of normal activity.")
+solutions[[1]]<-paste("The likelihood is",l," Then the probability of busy activity is: $$\\begin{aligned}
+\\Pr(\\theta=",a,"|X=",f,") &= \\frac{\\Pr(X=",f,"|\\theta=",a,")\\Pr(\\theta=",a,")}{\\Pr(X=",f,"|\\theta=",a,")\\Pr(\\theta=",a,")+\\Pr(X=",f,"|\\theta=",b,")\\Pr(\\theta=",b,")} \\nonumber \\\\
+&=\\frac{",round(((a^f)*exp(-a))/factorial(f),3),"\\times",c,"}{",round(((a^f)*exp(-a))/factorial(f),3),"\\times",c,"+",round(((b^f)*exp(-b))/factorial(f),3),"\\times",e,"} \\nonumber \\\\
+&=",round(((((a^f)*exp(-a))/factorial(f))*c)/((((a^f)*exp(-a))/factorial(f))*c+(((b^f)*exp(-b))/factorial(f))*e),3),"
+\\end{aligned}$$
+Hence, we can calculate the probability of normal activity as $1-\\Pr(\\theta=",a,"|X=",f,")=1-",round(((((a^f)*exp(-a))/factorial(f))*c)/((((a^f)*exp(-a))/factorial(f))*c+(((b^f)*exp(-b))/factorial(f))*e),3),"=",1-round(((((a^f)*exp(-a))/factorial(f))*c)/((((a^f)*exp(-a))/factorial(f))*c+(((b^f)*exp(-b))/factorial(f))*e),3),".$")
+
+questions[[2]]<-paste("Suppose that we now want to predict $Y$, the number of severe floods in the UK in 2018. Determine the predictive probability function for $Y$, $f(y|x=",f,")$. You may assume that floods occur at the same rate in 2018 as they did in 2017.")
+solutions[[2]]<-paste("Since we are told that the rate of severe floods in 2018 is the same as it is in 2017, we have: $$\\begin{aligned}
+f(y|x=",f,")&=\\sum_{\\theta=",a,b,"}f(y|\\theta)\\pi(\\theta|x=",f,") \\nonumber \\\\
+&=",1-round(((((a^f)*exp(-a))/factorial(f))*c)/((((a^f)*exp(-a))/factorial(f))*c+(((b^f)*exp(-b))/factorial(f))*e),3),"\\left(\\frac{",b,"^ye^{-",b,"}}{y!}\\right)+",round(((((a^f)*exp(-a))/factorial(f))*c)/((((a^f)*exp(-a))/factorial(f))*c+(((b^f)*exp(-b))/factorial(f))*e),3),"\\left(\\frac{",a,"^ye^{-",a,"}}{y!}\\right). \\nonumber \\\\
+\\end{aligned}$$")
+
+```
+
+Question
+========
+Suppose that $X$ is the number of severe floods affecting the UK in 2017, and let $\theta$ be the yearly rate of occurences for such floods. A meteorologist assumes that `r dis`, with the following prior for $\theta$:
+
+|$$\text{Level of Activity}$$|$$\theta$$            |$$\pi(\theta)$$         |
+|:---------------------------|:---------------------|:-----------------------|
+|$$\text{Busy}$$             |$$`r a`$$             |$$`r c`$$                 |
+|$$\text{Normal}$$           |$$`r b`$$             |$$`r e`$$                 |
+
+
+```{r questionlist, echo = FALSE, results = "asis"}
+answerlist(paste(unlist(questions)), markup = "markdown")
+```
+
+  
+Solution
+========
+```{r solutionlist, echo = FALSE, results = "asis"}
+answerlist(paste(unlist(solutions)), markup ="markdown")
+```
+  
+Meta-information
+================
+  extype: num
+exsolution: 1
+exname: asymptotic prior
+extol: 0.01

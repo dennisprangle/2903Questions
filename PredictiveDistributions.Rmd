@@ -1,0 +1,48 @@
+---
+output: html_document
+---
+```{r data generation, echo = FALSE, results = "hide"}
+a<-sample(c(17:23),1)
+x<-sample(c(1:2),1)
+mean<-round(1/a+1,2)
+sd<-round(sqrt(a/((a+1)^2)*(a+2)),2)
+al<-1+x
+be<-a+(6-x)
+mean2<-round(al/(al+be),2)
+sd2<-round(sqrt(al*be/((al+be)^2*(al+be+1))),2)
+al2<-al-1
+be2<-be-1
+c<-be2+6
+al3<-al2+1
+c2<-c+1
+```
+
+Question
+========
+Suppose that $X$ is the number of broken computers in a room that contains 6 computers. If the computers are broken independently of one another and they each have the same probability of not working, then $X|\theta \sim Bin(6,\theta)$. Suppose we believe that the probability of a computer being broken is unlikely and so we take a $Be(1,`r a`)$ prior distribution with $E[\theta]=`r mean`$ and $SD(\theta)=`r sd`$.
+
+Suppose we enter the room and observe $x=`r x`$ broken computer(s). In this case the likelihood mode is $\hat{\theta}=\frac{`r x`}{6}$. We have seen that in cases such as this, that the posterior distribution is a $Beta$ distribution whose first and second parameters are those of the prior distribution incremented by the number of success and failures respectively. Thus the posterior distribution is a $Be(`r al`,`r be`)$ distribution with $E[\theta|x=`r x`]=`r mean2`$ and $SD(\theta| x=`r x`)=`r sd2`$.
+
+If we walked into the room again tomorrow, what is the predictive probability distribution of the number of computers found broken?
+
+Solution
+========
+Suppose the number of broken computers found in this future sample is $Y$, and $Y \sim Bin(6, \theta)$.
+
+The predictive probability function of $Y$ is (for $y=0,1,...,6$):
+
+$$\begin{aligned}
+f(y|x=`r x`)&=\int_{\Theta}f(y|\theta)\pi(\theta|x=`r x`)d\theta \nonumber \\
+&=\int^1_0 {{6}\choose{y}}\theta^{y}(1-\theta)^{6-y}\times \frac{\theta^{`r al2`}(1-\theta)^{`r be2`}}{B(`r al`,`r be`)}d\theta \nonumber \\
+&={{6}\choose{y}}\frac{1}{B(`r al`,`r be`)} \int^1_0\theta^{y+`r al2`}(1-\theta)^{`r c`-y}d\theta \nonumber \\
+&={{6}\choose{y}}\frac{B(y+`r al3`,`r c2`-y)}{B(`r al`,`r be`)} \nonumber \\ 
+\end{aligned}$$
+
+that is, $Y|x=`r x` \sim BetaBin(6,`r al`,`r be`)$.
+
+Meta-information
+================
+extype: num
+exsolution: 1
+exname: predictive distributions
+extol: 0.01
