@@ -3,11 +3,16 @@ library(shiny)
 library(shinythemes)
 library(exams)
 library(rmarkdown)
-shinyUI(fluidPage(theme = shinytheme("sandstone"),
+library(shinyjs)
+shinyUI(fluidPage(
+  shinyjs::useShinyjs(),
+  shinyjs::extendShinyjs(text="shinyjs.refresh=function() {location.reload();}"),
+  theme = shinytheme("sandstone"),
                 selectInput(inputId="var",label="Choose a Topic",choices=lookup,selected="BayesProbability.Rmd"),
                 actionButton(inputId="show",label="Reveal Answers"),
+                actionButton(inputId="refresh",label="New Question Set"),
                 mainPanel(
                   htmlOutput("question", header=""),
-                  conditionalPanel(condition="input.show%2 == 1", htmlOutput("solution"), header="")
+                  conditionalPanel(condition="input.show%2 == 1", htmlOutput("solution"), header="",label="sol")
                 )
 ))

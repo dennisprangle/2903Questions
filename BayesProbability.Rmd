@@ -81,11 +81,11 @@ rand6 <- 1-max(c,d)
 
 #Calculate some solutions
 
-x1 <- paste("$$\\Pr(\\theta_{1}|x_{1})=\\frac{\\Pr(X=x_{1}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{1}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{1}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand1,"*",pr1,"}{",rand1,"*",pr1,"+",rand4,"*",pr2,"}=",round((rand1*pr1)/(rand1*pr1+rand4*pr2),4),", \\text{ to 4 d.p.}$$")
+x1 <- paste("$$\\Pr(\\theta_{1}|x_{1})=\\frac{\\Pr(X=x_{1}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{1}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{1}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand1,"\\times",pr1,"}{",rand1,"\\times",pr1,"+",rand4,"\\times",pr2,"}=",round((rand1*pr1)/(rand1*pr1+rand4*pr2),4),", \\text{ to 4 d.p.}$$")
 
-x2 <- paste("$$\\Pr(\\theta_{1}|x_{2})=\\frac{\\Pr(X=x_{2}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{2}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{2}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand2,"*",pr1,"}{",rand2,"*",pr1,"+",rand5,"*",pr2,"}=",round((rand2*pr1)/(rand2*pr1+rand5*pr2),4),", \\text{ to 4 d.p.}$$")
+x2 <- paste("$$\\Pr(\\theta_{1}|x_{2})=\\frac{\\Pr(X=x_{2}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{2}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{2}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand2,"\\times",pr1,"}{",rand2,"\\times",pr1,"+",rand5,"\\times",pr2,"}=",round((rand2*pr1)/(rand2*pr1+rand5*pr2),4),", \\text{ to 4 d.p.}$$")
 
-x3 <- paste("$$\\Pr(\\theta_{1}|x_{3})=\\frac{\\Pr(X=x_{3}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{3}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{3}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand3,"*",pr1,"}{",rand3,"*",pr1,"+",rand6,"*",pr2,"}=",round((rand3*pr1)/(rand3*pr1+rand6*pr2),4),", \\text{ to 4 d.p.} $$")
+x3 <- paste("$$\\Pr(\\theta_{1}|x_{3})=\\frac{\\Pr(X=x_{3}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{3}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{3}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand3,"\\times",pr1,"}{",rand3,"\\times",pr1,"+",rand6,"\\times",pr2,"}=",round((rand3*pr1)/(rand3*pr1+rand6*pr2),4),", \\text{ to 4 d.p.} $$")
 
 x4 <- 1- round((rand1*pr1)/(rand1*pr1+rand4*pr2),4)
 x5 <- 1- round((rand2*pr1)/(rand2*pr1+rand5*pr2),4)

@@ -25,8 +25,8 @@ solutions[[5]] <- print("A prior distribution $\\pi(\\theta)$ is the probability
 
 questions[[6]] <- print("State the definition of a **posterior distribution**.")
 solutions[[6]] <- print("The posterior probability (density) function for $\\theta$ is $$\\pi(\\theta|\\textbf{x})=\\frac{\\pi(\\theta)f(\\textbf{x}|\\theta)}{f(\\textbf{x})}$$ where $$f(\\textbf{x})=\\begin{cases}
-\\int_{\\Theta}\\pi(\\theta)f(\\textbf{x}|\\theta)d\\theta, & \\text{for continuous $\\theta$.} \\\\
-\\sum_{\\Theta}\\pi(\\theta)f(\\textbf{x})|\\theta), & \\text{for discrete $\\theta$.}
+\\int_{\\Theta}\\pi(\\theta)f(\\textbf{x}|\\theta)d\\theta, & \\text{for continuous } \\theta \\\\
+\\sum_{\\Theta}\\pi(\\theta)f(\\textbf{x})|\\theta), & \\text{for discrete } \\theta.
 \\end{cases}$$ This represents our beliefs after we have observed some data.")
 
 questions[[7]] <- print("State the equation for the **normalising constant** for Bayes theorem.")

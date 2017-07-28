@@ -3,6 +3,8 @@ library(exams)
 library(rmarkdown)
 library(shiny)
 library(shinythemes)
+library(shinyjs)
+library(V8)
 shinyServer(function(input,output){
   seed <- as.numeric(Sys.time())  
   
@@ -18,4 +20,6 @@ shinyServer(function(input,output){
   }
   output$question <- renderUI({makeQuestion(input$var)})
   output$solution <- renderUI({makeSolution(input$var)})
+  observeEvent(input$refresh, {shinyjs::js$refresh()})
+  observeEvent(input$var, {shinyjs::reset("sol")})
 })

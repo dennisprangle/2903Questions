@@ -33,6 +33,12 @@ dens<- if (d=='g'){
   paste("\\pi(\\theta|\\textbf{x})=",1/((factorial(a-1)*factorial(b-1))/factorial(a+b-1)),"\\theta^",a-1,"(1-\\theta)^",b-1,", 0 < \\theta < 1.")
 }
 
+dens2<-dens<- if (d=='g'){
+  paste("\\int^b_a\\pi(\\theta|\\textbf{x})=",round((1/factorial(a-1))*b^a,0),"\\theta^{",a-1,"}e^{-",b,"\\theta}=1-\\alpha.")
+} else if (d=='b'){
+  paste("\\int^b_a\\pi(\\theta|\\textbf{x})=",1/((factorial(a-1)*factorial(b-1))/factorial(a+b-1)),"\\theta^",a-1,"(1-\\theta)^",b-1,"=1-\\alpha.")
+}
+
 func<- if(d=='g'){
   paste("
         g=function(a){ 
@@ -102,7 +108,7 @@ plot(x,dis2,type='l',xlab='theta',ylab='Density')
 
 Solution
 ========
-The HDI must take the form $c_{\alpha}(a,b)$ if it is to include the values of $\theta$ with the highest probability density. The end-points a and b must satisfy .Unfortunately, there is no simple analytical solution to these equations and so numerical methods have to be employed to find $a$ and $b$.
+The HDI must take the form $c_{\alpha}(a,b)$ if it is to include the values of $\theta$ with the highest probability density. The end-points a and b must satisfy $`r dens2`$.Unfortunately, there is no simple analytical solution to this equation and so numerical methods have to be employed to find $a$ and $b$.
 
 The `R` code to determine $a$ and $b$ is 
 
