@@ -172,18 +172,49 @@ pmis2<- 1-pmis
 mis <-100*pmis2
 ```
 
-
-Question
+Solution
 ========
-Suppose that `r e` suffers from two intermittent problems, one caused by `r p1` ($\theta_{1}$), and the other due to `r p2` ($\theta_{2}$). These occur with probabilities `r pr1` and `r pr2` respectively. When examined the `r e2` shows one of the following symptoms:  
 
-$x_{1}$: `r s1`,  
-$x_{2}$: `r s2`,  
-$x_{3}$: `r s3`.  
+First we must calculate the **posterior probabilities**, $\Pr(\theta_{1}|x)$ and $\Pr(\theta_{2}|x)$ for $x=x_{1},x_{2},x_{3}.$ Since $\theta_{1}+\theta_{2}=1$, $\theta_{1}$ and $\theta_{2}$ form a partition, and so we can use **Bayes Theorem** as follows. We have:  
 
-Suppose it is known by `r ex` that these symptoms occur with probabilities that depend on the problem. The probabilities $\Pr(X=x|\theta)$ are given below. Construct a diagnostic rule for these symptoms and determine the probability of misdiagnosis.
+`r x1`
 
-|                                    | $x_{1}$         | $x_{2}$         | $x_{3}$         |
-|:---------------------------------- | --------------: | --------------: | --------------: |
-|$\theta_{1}$: `r p1`                | $$`r rand1`$$   | $$`r rand2`$$   | $$`r rand3`$$   |
-|$\theta_{2}$: `r p2`                | $$`r rand4`$$   | $$`r rand5`$$   | $$`r rand6`$$   |
+`r x2`
+
+`r x3`  
+
+It follows that:
+
+$$\Pr(\theta_{2}|x_{1})=1-\Pr(\theta_{1}|x_{1})= `r x4`  $$
+$$\Pr(\theta_{2}|x_{2})=1-\Pr(\theta_{1}|x_{2})= `r x5`  $$
+$$\Pr(\theta_{2}|x_{3})=1-\Pr(\theta_{1}|x_{3})= `r x6`  $$
+
+And so we obtain the posterior distributions $\Pr(\theta|x)$ given in the table below:
+
+|                                 | $$x_1$$   | $$x_2$$   | $$x_3$$   |
+| :------------------------------ | --------: | --------: | --------: |
+| $\theta_{1}$: `r p1`            | `r xi`    | `r xii`   | `r xiii`  |
+| $\theta_{2}$: `r p2`            | `r x4`    | `r x5`    | `r x6`    |
+
+Observing this table we can see that if `r s1` is observed, the most plausible problem is `r xl1`, if `r s2` is observed, the most plausible problem is `r xl2`, and if `r s3` are observed, the most plausible problem is `r xl3`. From these results, we can construct a diagnostic rule:
+
+| **Symptom**                         | **Diagnosis**                  |
+| :---------------------------------- | :----------------------------- |
+| `r s1`, $(x_{1})$:                  | `r xl1`, $`r prob1`$           |
+| `r s2`, $(x_{2})$:                  | `r xl2`, $`r prob2`$           |
+| `r s3`, $(x_{3})$:                  | `r xl3`, $`r prob3`$           |  
+
+
+If we were to use this diagnostic rule repeatedly, then the probability of misdiagnosing the problem is:
+
+$$
+\begin{aligned}
+\Pr(\text{Misdiagnosis}) &=1 - (\Pr(`r prob1`, X=x_{1})+\Pr(`r prob2`, X=x_{2}) +\Pr(`r prob3`,X=x_{3})) \\
+&= 1- (\Pr(X=x_{1}|`r prob1`)\Pr(`r prob1`)+\Pr(X=x_{2}|`r prob2`)\Pr(`r prob2`)+\Pr(X=x_{3}|`r prob3`)\Pr(`r prob3`)) \\
+&= 1 - (`r pm1`\times`r pt1`+`r pm2`\times`r pt2`+`r pm3`\times`r pt3`) \\
+&= 1 - `r pmis` \\
+&= `r pmis2`
+\end{aligned}
+$$
+
+And so about `r mis`% of diagnoses will be misdiagnoses.
