@@ -12,6 +12,6 @@ shinyUI(fluidPage(theme = shinytheme("sandstone"),
                 actionButton(inputId="show",label="Reveal Answers"),
                 mainPanel(
                   htmlOutput("question", header=""),
-                  conditionalPanel(condition="input.show%2 == 1", htmlOutput("solution"), header="")
+                  htmlOutput("solution", header="")
                 )
 ))
