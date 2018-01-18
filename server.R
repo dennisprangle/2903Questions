@@ -13,9 +13,11 @@ shinyServer(function(input,output){
     render(filename, output_file="temp.html")
     withMathJax(includeHTML("temp.html"))
   }
-  output$question = renderUI({makeHTML(example_lookup[input$example])})
-  output$solution = renderUI({
-    filename = ifelse(input$show %% 2, solution_lookup[input$example], "blank.Rmd")
-    makeHTML(filename)
+  observeEvent(input$example, {
+    output$question = renderUI({makeHTML(example_lookup[input$example])})
+    output$solution = renderUI({makeHTML("blank.Rmd")})
+  })
+  observeEvent(input$show, {
+    output$solution = renderUI({makeHTML(solution_lookup[input$example])})
   })
 })
