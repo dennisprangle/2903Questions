@@ -80,11 +80,11 @@ rand6 <- 1-max(c,d)
 
 #Calculate some solutions
 
-x1 <- paste("$$\\Pr(\\theta_{1}|x_{1})=\\frac{\\Pr(X=x_{1}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{1}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{1}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand1,"\\times",pr1,"}{",rand1,"\\times",pr1,"+",rand4,"\\times",pr2,"}=",round((rand1*pr1)/(rand1*pr1+rand4*pr2),4),", \\text{ to 4 d.p.}$$")
+x1 <- paste("$$\\Pr(\\theta_{1}|x_{1})=\\frac{\\Pr(x_{1}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(x_{1}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(x_{1}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand1,"\\times",pr1,"}{",rand1,"\\times",pr1,"+",rand4,"\\times",pr2,"}=",round((rand1*pr1)/(rand1*pr1+rand4*pr2),4),", \\text{ to 4 d.p.}$$")
 
-x2 <- paste("$$\\Pr(\\theta_{1}|x_{2})=\\frac{\\Pr(X=x_{2}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{2}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{2}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand2,"\\times",pr1,"}{",rand2,"\\times",pr1,"+",rand5,"\\times",pr2,"}=",round((rand2*pr1)/(rand2*pr1+rand5*pr2),4),", \\text{ to 4 d.p.}$$")
+x2 <- paste("$$\\Pr(\\theta_{1}|x_{2})=\\frac{\\Pr(x_{2}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(x_{2}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(x_{2}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand2,"\\times",pr1,"}{",rand2,"\\times",pr1,"+",rand5,"\\times",pr2,"}=",round((rand2*pr1)/(rand2*pr1+rand5*pr2),4),", \\text{ to 4 d.p.}$$")
 
-x3 <- paste("$$\\Pr(\\theta_{1}|x_{3})=\\frac{\\Pr(X=x_{3}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{3}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{3}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand3,"\\times",pr1,"}{",rand3,"\\times",pr1,"+",rand6,"\\times",pr2,"}=",round((rand3*pr1)/(rand3*pr1+rand6*pr2),4),", \\text{ to 4 d.p.} $$")
+x3 <- paste("$$\\Pr(\\theta_{1}|x_{3})=\\frac{\\Pr(x_{3}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(x_{3}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(x_{3}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand3,"\\times",pr1,"}{",rand3,"\\times",pr1,"+",rand6,"\\times",pr2,"}=",round((rand3*pr1)/(rand3*pr1+rand6*pr2),4),", \\text{ to 4 d.p.} $$")
 
 x4 <- 1- round((rand1*pr1)/(rand1*pr1+rand4*pr2),4)
 x5 <- 1- round((rand2*pr1)/(rand2*pr1+rand5*pr2),4)
@@ -112,70 +112,75 @@ xl3 <- if (max(xiii,x6)==xiii){
 
 #Code problems
 
-prob1 <- if(xl1==p1){
-  print("\\theta_{1}")
-} else if(xl1==p2){
-  print("\\theta_{2}")
+if (xl1 == p1) {
+  diag1 = "\\theta_1"
+  misdiag1 = "\\theta_2"
+} else {
+  diag1 = "\\theta_2"
+  misdiag1 = "\\theta_1"
 }
-
-prob2 <- if(xl2==p1){
-  print("\\theta_{1}")
-} else if (xl2==p2){
-  print("\\theta_{2}")
+if (xl2 == p1) {
+  diag2 = "\\theta_1"
+  misdiag2 = "\\theta_2"
+} else {
+  diag2 = "\\theta_2"
+  misdiag2 = "\\theta_1"
 }
-
-prob3 <- if (xl3==p1){
-  print("\\theta_{1}")
-} else if (xl3==p2){
-  print("\\theta_{2}")
+if (xl3 == p1) {
+  diag3 = "\\theta_1"
+  misdiag3 = "\\theta_2"
+} else {
+  diag3 = "\\theta_2"
+  misdiag3 = "\\theta_1"
 }
 
 #Probabilities needed for misdiagnosis
-pm1 <- if (prob1=="\\theta_{1}"){
+pm1 <- if (diag1=="\\theta_1"){
+  rand4
+} else if (diag1=="\\theta_2"){
   rand1
-} else if (prob1=="\\theta_{2}"){
- rand4
 }
 
-pm2 <- if (prob2=="\\theta_{1}"){
-  rand2
-} else if (prob2=="\\theta_{2}"){
+pm2 <- if (diag2=="\\theta_1"){
   rand5
+} else if (diag2=="\\theta_2"){
+  rand2
 }
 
-pm3 <- if (prob3=="\\theta_{1}"){
-  rand3
-} else if (prob3=="\\theta_{2}"){
+pm3 <- if (diag3=="\\theta_1"){
   rand6
+} else if (diag3=="\\theta_2"){
+  rand3
 }
 
-pt1 <- if (prob1=="\\theta_{1}"){
-  pr1
-} else {
+pt1 <- if (diag1=="\\theta_1"){
   pr2
-}
-
-pt2 <- if (prob2=="\\theta_{1}"){
-  pr1
 } else {
-  pr2
-}
-
-pt3 <- if (prob3=="\\theta_{1}"){
   pr1
-} else {
-  pr2
 }
 
-pmis <- pm1*pt1+pm2*pt2+pm3*pt3
-pmis2<- 1-pmis
-mis <-100*pmis2
+pt2 <- if (diag2=="\\theta_1"){
+  pr2
+} else {
+  pr1
+}
+
+pt3 <- if (diag3=="\\theta_1"){
+  pr2
+} else {
+  pr1
+}
+
+pmis = pm1*pt1+pm2*pt2+pm3*pt3
+mis = 100*pmis
 ```
 
 Solution
 ========
 
-First we must calculate the **posterior probabilities**, $\Pr(\theta_{1}|x)$ and $\Pr(\theta_{2}|x)$ for $x=x_{1},x_{2},x_{3}.$ Since $\theta_{1}+\theta_{2}=1$, $\theta_{1}$ and $\theta_{2}$ form a partition, and so we can use **Bayes Theorem** as follows. We have:  
+### Posterior probabilities
+
+First we must calculate the **posterior probabilities**, $\Pr(\theta_{1}|x_i)$ and $\Pr(\theta_{2}|x_i)$ for $i=1,2,3$. We can use **Bayes Theorem** as follows:
 
 `r x1`
 
@@ -185,36 +190,47 @@ First we must calculate the **posterior probabilities**, $\Pr(\theta_{1}|x)$ and
 
 It follows that:
 
-$$\Pr(\theta_{2}|x_{1})=1-\Pr(\theta_{1}|x_{1})= `r x4`  $$
-$$\Pr(\theta_{2}|x_{2})=1-\Pr(\theta_{1}|x_{2})= `r x5`  $$
-$$\Pr(\theta_{2}|x_{3})=1-\Pr(\theta_{1}|x_{3})= `r x6`  $$
-
-And so we obtain the posterior distributions $\Pr(\theta|x)$ given in the table below:
+$$
+\begin{aligned}
+\Pr(\theta_{2}|x_{1}) &= 1-\Pr(\theta_{1}|x_{1})= `r x4` \\
+\Pr(\theta_{2}|x_{2}) &= 1-\Pr(\theta_{1}|x_{2})= `r x5` \\
+\Pr(\theta_{2}|x_{3}) &= 1-\Pr(\theta_{1}|x_{3})= `r x6`
+\end{aligned}
+$$
+We can summarise these posterior probabilities $\Pr(\theta_j|x_i)$ in the follwing table:
 
 |                                 | $$x_1$$   | $$x_2$$   | $$x_3$$   |
 | :------------------------------ | --------: | --------: | --------: |
 | $\theta_{1}$: `r p1`            | `r xi`    | `r xii`   | `r xiii`  |
 | $\theta_{2}$: `r p2`            | `r x4`    | `r x5`    | `r x6`    |
 
-Observing this table we can see that if `r s1` is observed, the most plausible problem is `r xl1`, if `r s2` is observed, the most plausible problem is `r xl2`, and if `r s3` are observed, the most plausible problem is `r xl3`. From these results, we can construct a diagnostic rule:
+### Diagnostic rule
 
-| **Symptom**                         | **Diagnosis**                  |
-| :---------------------------------- | :----------------------------- |
-| `r s1`, $(x_{1})$:                  | `r xl1`, $`r prob1`$           |
-| `r s2`, $(x_{2})$:                  | `r xl2`, $`r prob2`$           |
-| `r s3`, $(x_{3})$:                  | `r xl3`, $`r prob3`$           |  
+Using this table we can see that
 
+* If $x_1$ is observed (`r s1`), the most plausible problem is $`r diag1`$ (`r xl1`).
+* If $x_2$ is observed (`r s2`), the most plausible problem is $`r diag2`$ (`r xl2`).
+* If $x_3$ is observed (`r s3`), the most plausible problem is $`r diag3`$ (`r xl3`).
 
-If we were to use this diagnostic rule repeatedly, then the probability of misdiagnosing the problem is:
+From these results, we can construct a diagnostic rule:
+
+| **Symptom**                       | **Diagnosis**                  |
+| :-------------------------------- | :----------------------------- |
+| `r s1`, $x_{1}$:                  | `r xl1`, $`r diag1`$           |
+| `r s2`, $x_{2}$:                  | `r xl2`, $`r diag2`$           |
+| `r s3`, $x_{3}$:                  | `r xl3`, $`r diag3`$           |  
+
+### Probability of misdiagnosis
+
+The probability of misdiagnosing the problem is:
 
 $$
 \begin{aligned}
-\Pr(\text{Misdiagnosis}) &=1 - (\Pr(`r prob1`, X=x_{1})+\Pr(`r prob2`, X=x_{2}) +\Pr(`r prob3`,X=x_{3})) \\
-&= 1- (\Pr(X=x_{1}|`r prob1`)\Pr(`r prob1`)+\Pr(X=x_{2}|`r prob2`)\Pr(`r prob2`)+\Pr(X=x_{3}|`r prob3`)\Pr(`r prob3`)) \\
-&= 1 - (`r pm1`\times`r pt1`+`r pm2`\times`r pt2`+`r pm3`\times`r pt3`) \\
-&= 1 - `r pmis` \\
-&= `r pmis2`
+\Pr(\text{Misdiagnosis}) &= \Pr(`r misdiag1`, x_{1})+\Pr(`r misdiag2`, x_{2}) +\Pr(`r misdiag3`,x_{3}) \\
+&= \Pr(x_{1}|`r misdiag1`)\Pr(`r misdiag1`)+\Pr(x_{2}|`r misdiag2`)\Pr(`r misdiag2`)+\Pr(x_{3}|`r misdiag3`)\Pr(`r misdiag3`) \\
+&= `r pm1` \times `r pt1`+`r pm2` \times `r pt2`+`r pm3` \times `r pt3` \\
+&= `r pmis`
 \end{aligned}
 $$
 
-And so about `r mis`% of diagnoses will be misdiagnoses.
+So we believe about `r mis`% of diagnoses will be misdiagnoses.

@@ -80,11 +80,11 @@ rand6 <- 1-max(c,d)
 
 #Calculate some solutions
 
-x1 <- paste("$$\\Pr(\\theta_{1}|x_{1})=\\frac{\\Pr(X=x_{1}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{1}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{1}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand1,"\\times",pr1,"}{",rand1,"\\times",pr1,"+",rand4,"\\times",pr2,"}=",round((rand1*pr1)/(rand1*pr1+rand4*pr2),4),", \\text{ to 4 d.p.}$$")
+x1 <- paste("$$\\Pr(\\theta_{1}|x_{1})=\\frac{\\Pr(x_{1}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(x_{1}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(x_{1}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand1,"\\times",pr1,"}{",rand1,"\\times",pr1,"+",rand4,"\\times",pr2,"}=",round((rand1*pr1)/(rand1*pr1+rand4*pr2),4),", \\text{ to 4 d.p.}$$")
 
-x2 <- paste("$$\\Pr(\\theta_{1}|x_{2})=\\frac{\\Pr(X=x_{2}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{2}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{2}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand2,"\\times",pr1,"}{",rand2,"\\times",pr1,"+",rand5,"\\times",pr2,"}=",round((rand2*pr1)/(rand2*pr1+rand5*pr2),4),", \\text{ to 4 d.p.}$$")
+x2 <- paste("$$\\Pr(\\theta_{1}|x_{2})=\\frac{\\Pr(x_{2}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(x_{2}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(x_{2}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand2,"\\times",pr1,"}{",rand2,"\\times",pr1,"+",rand5,"\\times",pr2,"}=",round((rand2*pr1)/(rand2*pr1+rand5*pr2),4),", \\text{ to 4 d.p.}$$")
 
-x3 <- paste("$$\\Pr(\\theta_{1}|x_{3})=\\frac{\\Pr(X=x_{3}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(X=x_{3}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(X=x_{3}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand3,"\\times",pr1,"}{",rand3,"\\times",pr1,"+",rand6,"\\times",pr2,"}=",round((rand3*pr1)/(rand3*pr1+rand6*pr2),4),", \\text{ to 4 d.p.} $$")
+x3 <- paste("$$\\Pr(\\theta_{1}|x_{3})=\\frac{\\Pr(x_{3}|\\theta_{1})\\Pr(\\theta_{1})}{\\Pr(x_{3}|\\theta_{1})\\Pr(\\theta_{1})+\\Pr(x_{3}|\\theta_{2})\\Pr(\\theta_{2})}=\\frac{",rand3,"\\times",pr1,"}{",rand3,"\\times",pr1,"+",rand6,"\\times",pr2,"}=",round((rand3*pr1)/(rand3*pr1+rand6*pr2),4),", \\text{ to 4 d.p.} $$")
 
 x4 <- 1- round((rand1*pr1)/(rand1*pr1+rand4*pr2),4)
 x5 <- 1- round((rand2*pr1)/(rand2*pr1+rand5*pr2),4)
@@ -112,64 +112,67 @@ xl3 <- if (max(xiii,x6)==xiii){
 
 #Code problems
 
-prob1 <- if(xl1==p1){
-  print("\\theta_{1}")
-} else if(xl1==p2){
-  print("\\theta_{2}")
+if (xl1 == p1) {
+  diag1 = "\\theta_1"
+  misdiag1 = "\\theta_2"
+} else {
+  diag1 = "\\theta_2"
+  misdiag1 = "\\theta_1"
 }
-
-prob2 <- if(xl2==p1){
-  print("\\theta_{1}")
-} else if (xl2==p2){
-  print("\\theta_{2}")
+if (xl2 == p1) {
+  diag2 = "\\theta_1"
+  misdiag2 = "\\theta_2"
+} else {
+  diag2 = "\\theta_2"
+  misdiag2 = "\\theta_1"
 }
-
-prob3 <- if (xl3==p1){
-  print("\\theta_{1}")
-} else if (xl3==p2){
-  print("\\theta_{2}")
+if (xl3 == p1) {
+  diag3 = "\\theta_1"
+  misdiag3 = "\\theta_2"
+} else {
+  diag3 = "\\theta_2"
+  misdiag3 = "\\theta_1"
 }
 
 #Probabilities needed for misdiagnosis
-pm1 <- if (prob1=="\\theta_{1}"){
+pm1 <- if (diag1=="\\theta_1"){
+  rand4
+} else if (diag1=="\\theta_2"){
   rand1
-} else if (prob1=="\\theta_{2}"){
- rand4
 }
 
-pm2 <- if (prob2=="\\theta_{1}"){
-  rand2
-} else if (prob2=="\\theta_{2}"){
+pm2 <- if (diag2=="\\theta_1"){
   rand5
+} else if (diag2=="\\theta_2"){
+  rand2
 }
 
-pm3 <- if (prob3=="\\theta_{1}"){
-  rand3
-} else if (prob3=="\\theta_{2}"){
+pm3 <- if (diag3=="\\theta_1"){
   rand6
+} else if (diag3=="\\theta_2"){
+  rand3
 }
 
-pt1 <- if (prob1=="\\theta_{1}"){
-  pr1
-} else {
+pt1 <- if (diag1=="\\theta_1"){
   pr2
-}
-
-pt2 <- if (prob2=="\\theta_{1}"){
-  pr1
 } else {
-  pr2
-}
-
-pt3 <- if (prob3=="\\theta_{1}"){
   pr1
-} else {
-  pr2
 }
 
-pmis <- pm1*pt1+pm2*pt2+pm3*pt3
-pmis2<- 1-pmis
-mis <-100*pmis2
+pt2 <- if (diag2=="\\theta_1"){
+  pr2
+} else {
+  pr1
+}
+
+pt3 <- if (diag3=="\\theta_1"){
+  pr2
+} else {
+  pr1
+}
+
+pmis = pm1*pt1+pm2*pt2+pm3*pt3
+mis = 100*pmis
 ```
 
 
@@ -181,7 +184,7 @@ $x_{1}$: `r s1`,
 $x_{2}$: `r s2`,  
 $x_{3}$: `r s3`.  
 
-Suppose it is known by `r ex` that these symptoms occur with probabilities that depend on the problem. The probabilities $\Pr(X=x|\theta)$ are given below. Construct a diagnostic rule for these symptoms and determine the probability of misdiagnosis.
+Suppose it is known by `r ex` that these symptoms occur with probabilities that depend on the problem. The probabilities $\Pr(x_i|\theta_j)$ are given below. Construct a diagnostic rule for these symptoms and determine the probability of misdiagnosis.
 
 |                                    | $x_{1}$         | $x_{2}$         | $x_{3}$         |
 |:---------------------------------- | --------------: | --------------: | --------------: |
