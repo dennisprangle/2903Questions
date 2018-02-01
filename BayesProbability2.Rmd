@@ -1,10 +1,8 @@
 ---
-title: "R Markdown"
+title: ""
 output: html_document
-runtime: shiny
 ---
 ```{r data generation, echo = FALSE, results = "hide"}
-require(exams)
 #Diseases
 d<-sample(c("Lyme disease","FIV","myxomatosis"),1)
 
@@ -28,43 +26,13 @@ s2<-if(d=="Lyme disease"){
 a<-round(runif(1,0,3),1)
 b<-round(runif(1,0,3),1)
 c<-round(runif(1,95,99),1)
-
-
-#Generate some questions
-questions <- solutions <- explanations <- rep(list(""), 2)
-type <- rep(list("schoice"), 2)
-
-questions[[1]]<-paste("Calculate the probability that a",s2,"who tests positive actually has",d,".")
-solutions[[1]]<-paste("Let $D=\\Pr($The",s2,"has",d,"), $P=\\Pr($The",s2,"tests positive) and $N=\\Pr$(The",s2,"tests negative). We need to calculate $\\Pr(D|P)$. From the question we have:",
-
-"$$\\Pr(P|D)=",c/100,",$$ $$\\Pr(D)=",b/100,",$$ $$\\Pr(P|D^{c})=",a/100,",$$ and $$\\Pr(D^{c})=",1-b/100, ".$$",
-
-"$D$ and $D^{c}$ form a partition and so we can use Bayes' theorem as follows:", "$$\\Pr(D|P)=\\frac{\\Pr(P|D)\\Pr(D)}{\\Pr(P|D)\\Pr(D)+\\Pr(P|D^{c})\\Pr(D^{c})}=\\frac{",c/100,"*",b/100,"}{",c/100,"*",b/100,"+",a/100,"*",1-b/100,"}=\\frac{",c/100*b/100,"}{",c/100*b/100+a/100*(1-b/100),"}=",round((c/100*b/100)/(c/100*b/100+a/100*(1-b/100)),4),"\\text{to 4 d.p.}$$")
-
-questions[[2]]<-paste("Calculate the probability that a",s2,"who tests negative _does not_ have", d,".")
-solutions[[2]]<-paste("We need to calculate $\\Pr(D^{c}|N)$. From the question we have:",
-"$$\\Pr(N|D^{c})=",1-a/100,"$$, $$\\Pr(D)=",b/100,",$$ $$\\Pr(D^{c})=",1-b/100,",$$ and $$\\Pr(N|D)=",1-c/100,".$$",
-"Again we can use Bayes' Theorem as follows:",
-"$$\\Pr(D^{c}|N)=\\frac{\\Pr(N|D^{c})\\Pr(D^{c})}{\\Pr(N|D^{c})\\Pr(D^{c})+\\Pr(N|D)\\Pr(D)}=\\frac{",1-a/100,"*",1-b/100,"}{",1-a/100,"*",1-b/100,"+",1-c/100,"*",b/100,"}=\\frac{",(1-a/100)*(1-b/100),"}{",((1-a/100)*(1-b/100))+(1-c/100)*b/100,"}=",round(((1-a/100)*(1-b/100))/((1-a/100)*(1-b/100)+(1-c/100)*b/100),4),".$$ So nearly all",s,"that test negative will _not_ have",d,".")
 ```
 
 Question
 ========
 A veterinary scientist is studying an outbreak of `r d` in domestic `r s` in the UK. She has developed a blood test that is `r c`% effective in detecting the disease when it is present. However, the test also yields a "false positive" result for `r a`% of healthy `r s` tested. She believes that `r b`% of the UK's population of `r s` actually have the disease.
 
-```{r questionlist, echo = FALSE, results = "asis"}
-answerlist(paste(unlist(questions)), markup = "markdown")
-```
+Calculate the probability that:
 
-Solution
-========
-```{r answerlist, echo = FALSE, results = "asis"}
-answerlist(paste(unlist(solutions)), markup = "markdown")
-```
-
-Meta-information
-================
-extype: num
-exsolution: 1
-exname: bayes theorem
-extol: 0.01
+1. A `r s2` who tests positive actually has `r d`.
+2. A `r s2` who tests negative does __not__ have `r d`.

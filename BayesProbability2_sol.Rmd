@@ -1,0 +1,86 @@
+---
+title: ""
+output: html_document
+---
+```{r data generation, echo = FALSE, results = "hide"}
+#Diseases
+d<-sample(c("Lyme disease","FIV","myxomatosis"),1)
+
+#Species
+s<-if (d=="Lyme disease"){
+  print("dogs")
+} else if(d=="FIV"){
+  print("cats")
+} else if (d=="myxomatosis"){
+  print("rabbits")
+}
+s2<-if(d=="Lyme disease"){
+  print("dog")
+} else if (d=="FIV"){
+  print("cat")
+} else if (d=="myxomatosis"){
+  print("rabbit")
+}
+
+#Probabilities
+a<-round(runif(1,0,3),1)
+b<-round(runif(1,0,3),1)
+c<-round(runif(1,95,99),1)
+```
+
+Solution
+========
+
+Let:
+$$
+\begin{aligned}
+D &= \Pr(\text{The `r s2` has `r d`}) \\
+P &= \Pr(\text{The `r s2` tests positive}) \\
+N &= \Pr(\text{The `r s2` tests negative}).
+\end{aligned}
+$$
+
+### Part 1
+
+We need to calculate $\Pr(D|P)$.
+From the question we have:
+$$
+\begin{aligned}
+\Pr(P|D) &= `r c/100` \\
+\Pr(D) &= `r b/100` \\
+\Pr(P|D^C) &= `r a/100` \\
+\Pr(D^{c}) &= `r 1-b/100`.
+\end{aligned}
+$$
+Now we can use Bayes theorem as follows:
+$$
+\begin{aligned}
+\Pr(D|P) &= \frac{\Pr(P|D)\Pr(D)}{\Pr(P|D)\Pr(D)+\Pr(P|D^C)\Pr(D^C)} \\
+&= \frac{`r c/100` \times `r b/100`}{`r c/100` \times `r b/100` + `r a/100` \times `r 1-b/100`} \\
+&= \frac{`r c/100 * b/100`}{`r c/100 * b/100 + a/100 * (1-b/100)`} \\
+&= `r round((c/100*b/100)/(c/100*b/100+a/100*(1-b/100)),4)`. \qquad \text{(to 4 dp)}
+\end{aligned}
+$$
+
+### Part 2
+
+Now we need to calculate $\Pr(D^C|N)$.
+From the question we have:
+$$
+\begin{aligned}
+\Pr(N|D) &= `r 1-c/100` \\
+\Pr(D) &= `r b/100` \\
+\Pr(N|D^C) &= `r 1-a/100` \\
+\Pr(D^C) &= `r 1-b/100`.
+\end{aligned}
+$$
+Again we can use Bayes theorem:
+$$
+\begin{aligned}
+\Pr(D^C|N) &= \frac{\Pr(N|D^C)\Pr(D^{c})}{\Pr(N|D^C)\Pr(D^{c})+\Pr(N|D)\Pr(D)} \\
+&= \frac{`r 1-a/100` \times `r 1-b/100`}{`r 1-a/100` \times `r 1-b/100` + `r 1-c/100` \times `r b/100`} \\
+&= \frac{`r (1-a/100)*(1-b/100)`}{`r ((1-a/100)*(1-b/100))+(1-c/100)*b/100`} \\
+&= `r round(((1-a/100)*(1-b/100))/((1-a/100)*(1-b/100)+(1-c/100)*b/100),4)`. \qquad \text{(to 4 dp)}
+\end{aligned}
+$$
+So nearly all `r s` that test negative will _not_ have `r d`.
