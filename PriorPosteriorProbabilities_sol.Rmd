@@ -1,0 +1,47 @@
+---
+output: html_document
+---
+
+```{r data generation, echo = FALSE, results = "hide"}
+mu<-sample(1:10, 1)
+sd<-sample(2:4, 1)
+sd2<-sd^2
+x<-sample(1:5,1)
+p<-sample(c('prior', 'posterior'),1)
+if (p=='prior'){
+  condition = ""
+} else {
+  condition = " | x"
+}
+s<-sample(c('<','>'),1)
+if(s=='<'){
+  command = paste("pnorm(",x,", mean=",mu,", sd=",sd,")", sep="")
+  sol = pnorm(x,mu,sd)
+} else {
+  command = paste("1 - pnorm(",x,", mean=",mu,", sd=",sd,")", sep="")
+  sol = 1-pnorm(x,mu,sd)
+}
+```
+
+Solution
+========
+
+### R solution
+
+Running ``r command`` gives:  
+
+$\Pr(\theta `r s` `r x` `r condition`) = `r sol`$.
+ 
+### Statistical tables
+ 
+First we perform **normalisation**.  
+For both sides of $\theta `r s` `r x`$ subtract the mean (`r mu`) and divide by the standard deviation (`r sd`):
+
+$\Pr(\theta `r s` `r x` `r condition`)
+= \Pr \left( \frac{\theta-`r mu`}{`r sd`} `r s` \frac{`r x`-`r mu`}{`r sd`} `r condition` \right)
+= \Pr(Z `r s` `r (x - mu)/(sd)`)$,
+
+where $Z = \frac{\theta - `r mu`}{`r sd`}`r condition`$ so that $Z \sim N(0,1)$.
+
+To get the final answer without the use of R, we would use statistical tables
+to find $\Pr(Z `r s` `r (x - mu)/(sd)`)$ which should give approximately the same answer as using R.
