@@ -3,9 +3,7 @@ output: html_document
 ---
 
 ```{r data generation, echo = FALSE, results = "hide"}
-require(exams)
 ev <- sample(c('m','i','b'),1)
-ev=i
 e <- if (ev=='m'){
   print("the failure times of machine parts at a factory (in years)")
   } else if (ev=='i'){
@@ -53,72 +51,13 @@ data <- if(ev=='m'){
 } else if (ev=='b'){
   round(sample(seq(0,3,length=1000),6),2)
 }
-
-sol1 <- if (ev=='m'){
-  paste("$f(\\underline{x}|\\lambda)=\\overset{6}{\\underset{i=1}{\\prod}}\\frac{\\lambda^{",a,"}x_i^{\\alpha-1}e^{-\\lambda x_i}}{\\Gamma(\\alpha)\\lambda^{\\alpha}}\\propto\\overset{6}{\\underset{i=1}{\\prod}}\\lambda^{",a,"}x_i^{\\alpha-1}e^{-\\lambda x_i}=\\overset{6}{\\underset{i=1}{\\prod}}\\lambda^{",a,"}x_i^{",a-1,"}e^{-\\lambda x_i}\\propto \\lambda^{",a,"}e^{-\\lambda \\bar{x}}=\\lambda^{",a,"}\\exp(-",round(mean(data),2),"\\lambda).$")
-} else if (ev=='i'){
-  paste("$f(\\underline{x}|\\sigma^2)=\\overset{6}{\\underset{i=1}{\\prod}}\\frac{1}{\\sqrt{2\\pi\\sigma^{2}}}\\exp\\left\\{\\frac{-(x_i-",mu,")^2}{2\\sigma^2}\\right\\}=(2\\pi)^{-6/2}\\sigma^{-6}\\exp\\left\\{-\\frac{1}{2\\sigma^{2}}\\overset{6}{\\underset{i=1}{\\sum}}(x_i-",mu,")^{2}\\right\\}$")
-} else if (ev=='b'){
-  paste("$f(\\underline{x}|\\theta)=\\overset{6}{\\underset{i=1}{\\prod}}\\theta e^{-\\theta x_i}=\\theta^6e^{-\\theta\\bar{x}}=\\theta^6e^{-",round(mean(data),2),"\\theta}.$")
-}
-
-sol2 <- if (ev=='m'){
-  paste("$L(\\underline{x}|\\lambda)=\\log(\\lambda^{",a,"}\\exp(-",round(mean(data),2),"\\lambda))=",a,"\\log(\\lambda)-",round(mean(data),2),"\\lambda .$")
-} else if (ev=='i'){
-  paste("$L(\\underline{x}|\\sigma^2)=\\log((2\\pi)^{-6/2}\\sigma^{-6}\\exp\\left\\{-\\frac{1}{2\\sigma^{2}}\\overset{6}{\\underset{i=1}{\\sum}}(x_i-",mu,")^{2}\\right\\})= \\frac{-6}{2}\\ln(2\\pi)-6\\ln(\\sigma)-\\frac{1}{2\\sigma^2}\\left\\{\\overset{6}{\\underset{i=1}{\\sum}}(x_i-",mu,")^{2}\\right\\}$")
-} else if (ev=='b'){
-  paste("$L(\\underline{x}|\\theta)=\\log(\\theta^6e^{-\\theta\\bar{x}}=\\theta^6e^{-",round(mean(data),2),"\\theta})=6\\log(\\theta)-6",round(mean(data),2),"\\theta.$")
-}
-
-sol3 <- if (ev=='m'){
-  paste("$\\frac{dL}{d\\lambda}=\\frac{",a,"}{\\lambda}-",round(mean(data),2),".$ Setting this equal to zero, we can calculate the value of $\\lambda$ that maximises the likelihood as $\\hat{\\lambda}=\\frac{",a,"}{",round(mean(data),2),"}=",round(a/(round(mean(data),2)),2),".$")
-} else if (ev=='i'){
-  paste("$\\frac{dL}{d\\sigma^2}=\\frac{6}{\\sigma}-\\frac{1}{\\sigma^3}\\overset{6}{\\underset{i=1}{\\sum}}(x_i-",mu,")^{2}.$ Setting this equal to zero, we can calculate the value of $\\sigma^2$ that maximises the likelihood as $\\hat{\\sigma^2}=\\frac{1}{6}\\overset{6}{\\underset{i=1}{\\sum}}(x_i-",mu,")^{2}$")
-} else if (ev=='b'){
-  paste("$\\frac{dL}{d\\theta}=\\frac{6}{\\theta}-6\\times",round(mean(data),2),".$ Solving for $\\frac{dL}{d\\theta}=0$, we get $\\hat{\\theta}=\\frac{1}{\\bar{x}}=\\frac{1}{",round(mean(data),2),"}.$")
-}
-
-sol4 <- if(ev=='m'){
-  paste("$\\frac{d^2L}{d\\lambda^2}=\\frac{-",a,"}{\\lambda^2}$. This is always negative as $\\lambda^2$ must always be positive, therefore our answer to part (b) is a maximum.")
-} else if (ev=='i'){
-  paste("$\\frac{d^2L}{d(\\sigma^2)^2}=\\frac{-6}{\\sigma^2}+\\frac{3}{\\sigma^4}\\overset{6}{\\underset{i=1}{\\sum}}(x_i-",mu,")^{2}$. This is always negative as $\\sigma^2, \\sigma^4$, and $\\overset{6}{\\underset{i=1}{\\sum}}(x_i-",mu,")^{2}$ must always be positive, therefore our answer to part (b) is a maximum.")
-} else if (ev=='b'){
-  paste("$\\frac{d^2L}{d\\theta^2}=\\frac{-6}{\\theta^2}$. This is always negative as $\\theta^2$ is always positive, therefore our answer to part (b) is a maximum.")
-}
-
-questions <- solutions <- explanations <- rep(list(""), 4, sep="")
-type <- rep(list("schoice"), 4, sep="")
-
-questions[[1]] <- paste("Determine the likelihood function",p,"for this data.")
-solutions[[1]] <- sol1
-
-questions[[2]] <- paste("Hence find the log-likelihood function.")
-solutions[[2]] <- sol2
-
-questions[[3]] <- paste("Write down the maximum likelihood estimate for",c,"using your answer from part (b).")
-solutions[[3]] <- sol3
-
-questions[[4]] <- print("Verify that your answer to part (c) is a maximum.")
-solutions[[4]] <- sol4
 ```
 
-Question
-========
-You are interested in `r e`. Suppose that you are told that the data follows a `r dis` distribution and after some research, you record the following data: `r data`
+You are interested in `r e`.
+Assume that the data follows a `r dis` distribution.
+After some research, you record the following data: `r data`
 
-```{r questionlist, echo = FALSE, results = "asis"}
-answerlist(paste(unlist(questions), sep = ""), markup = "markdown")
-```
-  
-Solution
-========
-```{r solutionlist, echo = FALSE, results = "asis"}
-answerlist(paste(unlist(solutions), sep = ""), markup = "markdown")
-```
-  
-Meta-information
-================
-extype: num
-exsolution: 1
-exname: maximum likelihood estimators
-extol: 0.01
+1. Determine the likelihood function `r p` for this data.
+2. Hence find the log-likelihood function.
+3. Write down the maximum likelihood estimate for `r c` using your answer from part 2.
+4. (Optional) Verify that your answer to part 3 is a maximum.
