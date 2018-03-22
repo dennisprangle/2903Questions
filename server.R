@@ -9,9 +9,11 @@ shinyServer(function(input,output){
   seed = 0
   makeHTML = function(filename) {
     set.seed(seed)
-    #TO DO: create unique temp filename to knit to. Ensure we delete this file below.
-    render(filename, output_file="temp.html")
-    withMathJax(includeHTML("temp.html"))
+    filename_temp = tempfile()
+    render(filename, output_file=filename_temp)
+    out = withMathJax(includeHTML(filename_temp))
+    unlink(filename_temp)
+    out
   }
   observeEvent(input$example, {
     seed <<- as.numeric(Sys.time())
