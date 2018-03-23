@@ -1,0 +1,61 @@
+---
+output: html_document
+---
+
+```{r data generation, echo = FALSE, results = "hide"}
+e <- sample(c(
+  "the failure times of machine parts at a factory (in years)",
+  "the size of insurance claims (in thousands of pounds)",
+  "monthly rainfall (in mm)"), 1)
+
+n = sample(2:8, 1)
+
+a = sample(4:7,1)
+
+data <- round(sample(seq(2,13,length=1000),n),2)
+```
+
+Solution
+========
+
+### Part 1
+
+The likelihood is
+$$
+\begin{align*}
+f(\underline{x}|\lambda) &= \prod_{i=1}^n \frac{\lambda^{`r a`} x_i^{`r a`-1}
+e^{-\lambda x_i}}{\Gamma(`r a`)} \\
+&\propto \prod_{i=1}^n \lambda^{`r a`} e^{-\lambda x_i} \\
+&= \lambda^{`r a`n} e^{-\lambda \sum_{i=1}^n x_i} \\
+&= \lambda^{`r n*a`} e^{-`r round(sum(data),2)` \lambda}.
+\end{align*}
+$$
+(n.b. $x_1, x_2, \ldots, x_n$ are the observations)
+
+### Part 2
+
+The log-likelihood is
+$$
+\ell(\underline{x}|\lambda) 
+=`r n*a` \log \lambda- `r round(sum(data),2)` \lambda.
+$$
+
+### Part 3
+
+Differentiating the log-likelihood gives
+$$
+\frac{d\ell}{d\lambda} = \frac{`r n*a`}{\lambda}-`r round(sum(data),2)`.
+$$
+Setting this equal to zero, we can calculate the value of $\lambda$ that maximises the likelihood as
+$$
+\hat{\lambda}=\frac{`r n*a`}{`r round(sum(data),2)`}=`r round(a/(round(sum(data),2)),2)`.
+$$
+
+### Part 4
+
+Differentiating the log-likelihood again gives
+$$
+\frac{d^2\ell}{d\lambda^2} = -\frac{`r n*a`}{\lambda^2}.
+$$
+This is always negative as $\lambda^2 > 0$.
+Therefore our answer to part (b) is a maximum.

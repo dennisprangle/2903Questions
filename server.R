@@ -5,7 +5,7 @@ library(shiny)
 lookup = list(" "=c("blank"),
               "1.2 Bayes Theorem"=c("BayesProbability"),
               "1.2 Bayes Theorem 2"=c("BayesProbability2"),
-              "1.3 Maximum Likelihood"=c("MaximumLikelihood"),
+              "1.3 Maximum Likelihood"=c("MLE_gamma"),
               "2.1 Prior Density Plots"=c("PriorDensityPlots"),
               "2.1 Prior/Posterior Probabilities"=c("PriorPosteriorProbabilities"),
               "2.2 Exponential Prior"=c("ExponentialPrior"),
