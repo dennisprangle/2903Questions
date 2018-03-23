@@ -32,7 +32,7 @@ Running ``r command`` gives:
 
 $\Pr(\theta `r s` `r x` `r condition`) = `r sol`$.
  
-### Statistical tables
+### Statistical tables solution
  
 First we perform **normalisation**.  
 For both sides of $\theta `r s` `r x`$ subtract the mean (`r mu`) and divide by the standard deviation (`r sd`):
@@ -43,5 +43,5 @@ $\Pr(\theta `r s` `r x` `r condition`)
 
 where $Z = \frac{\theta - `r mu`}{`r sd`}`r condition`$ so that $Z \sim N(0,1)$.
 
-To get the final answer without the use of R, we would use statistical tables
+To get the final answer we would use statistical tables
 to find $\Pr(Z `r s` `r (x - mu)/(sd)`)$ which should give approximately the same answer as using R.
