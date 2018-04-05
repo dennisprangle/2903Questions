@@ -1,4 +1,5 @@
 ---
+title: ""
 output: html_document
 ---
 
@@ -57,5 +58,4 @@ Differentiating the log-likelihood again gives
 $$
 \frac{d^2\ell}{d\lambda^2} = -\frac{`r n*a`}{\lambda^2}.
 $$
-This is always negative as $\lambda^2 > 0$.
-Therefore our answer to part (b) is a maximum.
+Since this is negative, our $\hat{\lambda}$ value is a maximum of the likelihood.

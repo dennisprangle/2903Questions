@@ -1,0 +1,56 @@
+---
+title: ""
+output: html_document
+---
+
+```{r data generation, echo = FALSE, results = "hide"}
+e = sample(c(
+  "the time between cars passing on a busy road (in seconds)",
+  "the time taken to serve a bank customer (in minutes)",
+  "the distance between potholes on a road (in miles)"), 1)
+
+n = sample(4:8, 1)
+data = sample(seq(0,3,by=0.1), n)
+```
+
+Solution
+========
+
+### Part 1
+
+The likelihood is
+$$
+\begin{align*}
+f(\underline{x} | \theta) &= \prod_{i=1}^n \theta e^{-\theta x_i} \\
+&= \theta^`r n` e^{-\theta \sum_{i=1}^`r n` x_i} \\
+&= \theta^`r n` e^{-`r sum(data)` \theta}.
+\end{align*}
+$$
+(n.b. $x_1, x_2, \ldots, x_n$ are the observations)
+
+### Part 2
+
+The log-likelihood is
+
+$$
+\ell(\underline{x} | \theta) = `r n` \log \theta - `r sum(data)` \theta.
+$$
+
+### Part 3
+
+Differentiating the log-likelihood gives
+$$
+\frac{d\ell}{d\theta} = \frac{`r n`}{\theta} - `r sum(data)`.
+$$
+Setting this equal to zero, we can calculate the value of $\lambda$ that maximises the likelihood as
+$$
+\hat{\theta} = \frac{`r n`}{`r sum(data)`} = `r round(n/sum(data), 2)`.
+$$
+
+### Part 4
+
+Differentiating the log-likelihood again gives
+$$
+\frac{d^2\ell}{d\theta^2} = -\frac{`r n`}{\theta^2}.
+$$
+Since this is negative, our $\hat{\theta}$ value is a maximum of the likelihood.

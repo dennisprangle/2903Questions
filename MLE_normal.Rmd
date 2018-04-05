@@ -1,0 +1,23 @@
+---
+output: html_document
+---
+
+```{r data generation, echo = FALSE, results = "hide"}
+e <- sample(c("the IQ of MAS2903 students",
+              "heart rate after exercise (in beats per minute)",
+              "the rate of radioactive particles emitted by an experiment (in particles per second)"), 1)
+
+a=sample(c(4:7),1)
+mu=sample(c(120:140),1)
+
+data <- round(sample(c(100:150),6),2)
+```
+
+You are interested in `r e`.
+Assume that the data follows a $N(`r mu`, \sigma^2)$ distribution, and the observations are independent.
+After some research, you record the following data: `r data`
+
+1. Determine the likelihood function for this data.
+2. Hence find the log-likelihood function.
+3. Write down the maximum likelihood estimate for $\sigma$ using your answer from part 2.
+4. (Optional) Verify that your answer to part 3 is a maximum.

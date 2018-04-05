@@ -17,7 +17,7 @@ data <- round(sample(seq(2,13,length=1000),n),2)
 ```
 
 You are interested in `r e`.
-Assume that the data follows a $Ga(`r a`, \lambda)$ distribution.
+Assume that the data follows a $Ga(`r a`, \lambda)$ distribution, and the observations are independent.
 After some research, you record the following data: `r data`
 
 1. Determine the likelihood function up to proportionality for this data.
