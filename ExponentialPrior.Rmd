@@ -3,9 +3,6 @@ output: html_document
 ---
 
 ```{r data generation, echo = FALSE, results = "hide"}
-#First set some context for the question
-require(exams)
-
 #Randomly choose an event to observe
 e<-sample(c("a recent meteor shower", "some recent earthquakes in Chile", "a nearby telephone company"),1)
 
@@ -30,45 +27,27 @@ x<- round(runif(6,0,6),1)
 a<- sample(c(1:5),1)
 b<- sample(c(2:5),1)
 s<- sum(x)
-
-
-#Now generate some questions and respective solutions
-questions <- solutions <- explanations <- rep(list(""), 5)
-type <- rep(list("schoice"), 5)
-
-questions[[1]] <- print("It is assumed that the data are independent realisations of a random variable $X\\sim Exp(\\lambda)$. Explain why $Exp(\\lambda)$ is a reasonable distribution to use.")
-solutions[[1]] <- print("The data is continuous and always positive, so we need to choose a distribution which reflects these properties. The exponential distribution satisfies this.")
-
-questions[[2]] <- print("Derive the likelihood function for this model.")
-solutions[[2]] <- paste("The likelihood function is $f(\\underline{x}|\\lambda)$=$\\overset{6}{\\underset{i=1}{\\prod}}\\lambda$$e^{-\\lambda x_i}=\\lambda^{6}e^{\\underset{i=1}{\\overset{6}{\\sum}}x_{i}\\lambda}=\\lambda^{6}e^{",-s,"\\lambda}$, for $\\lambda > 0$.")
-
-questions[[3]] <- paste("A $Ga(",a,",",b,")$ prior distribution is used. Derive the posterior distribution.")
-solutions[[3]] <- paste("The posterior density is $\\pi(\\lambda|\\underline{x})\\propto\\pi(\\lambda)f(\\underline{x}|\\lambda)\\propto\\lambda^{",a-1,"}e^{",-b,"\\lambda}\\lambda^{6}e^{",-s,"\\lambda}=\\lambda^{",a-1+6,"}e^{",-b-s,"\\lambda}$. This is a $Ga(",a+6,",",b+s,")$ distribution.")
-
-questions[[4]] <- print("Calculate the prior (and posterior) mean, variance and mode.")
-solutions[[4]] <- paste("The prior mean is $E[\\lambda]=\\frac{",a,"}{",b,"}=$",round(a/b,2),", the prior variance is $Var(\\lambda)=\\frac{",a,"}{",b,"^2}=$",round(a/b^2,2),", and the prior mode is $\\frac{",1,"}{",b,"}(",a,"-1)=$",round(1/b*(a-1),2),". The posterior mean is $E[\\lambda]=\\frac{",a+6,"}{",b+s,"}=$",round((a+6)/(b+s),2),", the posterior variance is $Var(\\lambda)=\\frac{",a+6,"}{",(b+s),"^2}=$",round((a+6)/(b+s)^2,2)," and posterior mode is $\\frac{1}{",b+s,"}(",a+6,"-1)=$",round(1/(b+s)*(a+5),2))
-
-questions[[5]] <- paste("You also want to investigate using a less informative prior. A colleague suggests a $N(",a,",",b,")$ distribution. Explain why your colleague has made a bad choice.")
-solutions[[5]] <- print("This prior is a bad choice because it places positive density on negative values of $\\lambda$.")
 ```
 
 Question
 ========
 You are analysing data from `r e`. The following times (in `r t`) between `r o` were observed: `r x`
 
-```{r questionlist, echo = FALSE, results = "asis"}
-answerlist(paste(unlist(questions)), markup = "markdown")
-```
+1. 
+It is assumed that the data are independent realisations of a random variable
+$X\sim Exp(\lambda)$.
+Explain why $Exp(\lambda)$ is a reasonable distribution to use.
 
-Solution
-========
-```{r solutionlist, echo = FALSE, results = "asis"}
-answerlist(paste(unlist(solutions)), markup ="markdown")
-```
+2.
+Derive the likelihood function for this model.
 
-Meta-information
-================
-extype: num
-exsolution: 1
-exname: exponential prior
-extol: 0.01
+3.
+A $Ga(`r a`, `r b`)$ prior distribution is used. Derive the posterior distribution.
+
+4.
+Calculate the mean, variance and mode for the prior and posterior distributions.
+
+5.
+You also want to investigate using a less informative prior.
+A colleague suggests a $N(`r a`, `r b`)$ distribution.
+Explain why your colleague has made a bad choice.

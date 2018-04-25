@@ -1,0 +1,75 @@
+---
+output: html_document
+---
+
+```{r data generation, echo = FALSE, results = "hide"}
+#Randomly choose an event to observe
+e<-sample(c("a recent meteor shower", "some recent earthquakes in Chile", "a nearby telephone company"),1)
+
+#Make timescales relevant to each event 
+t<-if (e=="some recent earthquakes in Chile"){
+  print("days")
+} else {
+  print("minutes")
+}
+
+#Observations relevent to each event
+o<-if (e=="a recent meteor shower"){
+  print("meteors")
+} else if (e=="some recent earthquakes in Chile"){
+  print("earthquakes")
+} else if (e=="a nearby telephone company"){
+  print("phone calls")
+}
+
+#Randomly generate some data and parameters for a gamma distribution
+x<- round(runif(6,0,6),1)
+a<- sample(c(1:5),1)
+b<- sample(c(2:5),1)
+s<- sum(x)
+
+```
+
+Solution
+========
+
+### Part 1
+
+The data is continuous and always positive, so we need to choose a distribution which reflects these properties. The exponential distribution satisfies this.
+
+### Part 2
+
+The likelihood function is (for $\lambda > 0$):
+$$
+\begin{align*}
+f(\underline{x}|\lambda) &= \prod_{i=1}^6 \lambda e^{-\lambda x_i} \\
+&= \lambda^6 e^{- \lambda \sum_{i=1}^6 x_i} \\
+&= \lambda^6 e^{-`r s` \lambda}.
+\end{align*}
+$$
+
+### Part 3
+
+The posterior density is
+$$
+\begin{align*}
+\pi(\lambda|\underline{x}) &\propto \pi(\lambda) f(\underline{x}|\lambda) \\
+& \propto \lambda^{`r a-1`} e^{`r -b` \lambda} \times \lambda^6 e^{`r -s` \lambda} \\
+&= \lambda^{`r a-1+6`} e^{`r -b-s` \lambda}
+\end{align*}.
+$$
+This is a $Ga(`r a+6`, `r b+s`)$ distribution.
+
+### Part 4
+
+The prior mean is $E[\lambda]=\frac{`r a`}{`r b`}=`r round(a/b,2)`$.
+The prior variance is $Var(\lambda)=\frac{`r a`}{`r b`^2}=`r round(a/b^2,2)`$,
+and the prior mode is $\frac{1}{`r b`}(`r a`-1)=`r round(1/b*(a-1),2)`$.
+
+The posterior mean is $E[\lambda]=\frac{`r a+6`}{`r b+s`}=`r round((a+6)/(b+s),2)`$.
+The posterior variance is $Var(\lambda)=\frac{`r a+6`}{`r (b+s)`^2}=`r round((a+6)/(b+s)^2,2)`$
+and posterior mode is $\frac{1}{`r b+s`}(`r a+6`-1)=`r round(1/(b+s)*(a+5),2)`$.
+
+### Part 5
+
+This prior is a bad choice because it places positive density on negative values of $\lambda$.
