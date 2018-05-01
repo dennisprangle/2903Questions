@@ -3,53 +3,38 @@ output: html_document
 ---
 
 ```{r data generation, echo = FALSE, results = "hide"}
-require(exams)
 a<-sample(c(14:18),1)
-b<-sample(c(1,4,9),1)
+b<-sample(c(4,9,16),1)
 c<-sample(c(1:20),1)
 d<-sample(c(1:10),1)
 t<-sample(seq(0.1,0.3,length=3),1)
 
 
-questions <- solutions <- explanations <- rep(list(""), 5)
-type <- rep(list("schoice"), 5)
-
-questions[[1]] <- print("Explain why this prior is a good choice to capture the expert's beliefs.")
-solutions[[1]] <- print("This distribution has the correct mean.  Also if $\\theta \\sim N(a,b^2)$ then $\\Pr(a-2b<\\theta<a+2b)\\approx 0.95.$")
-
-questions[[2]] <- paste("Explain why $Po(",a,")$ would be a bad choice of prior.")
-solutions[[2]] <- print("Although this distribution has the correct mean, the variance is a lot larger than we would expect given the information from the expert.")
-
-questions[[3]] <- paste("Under the prior, $\\Pr(\\mu>20)=$",round(1-pnorm(20,a,sqrt(b)),4),". Use this information to come up with a prior refinement question to ask the expert.")
-solutions[[3]] <- paste("'Is it reasonable to expect to see $\\mu>20$ about",100*(round(1-pnorm(20,a,sqrt(b)),4))," times in a hundred?'")
-
-questions[[4]] <- paste("An observation x=",c," is observed. Use the results on the formula sheet to show that the posterior is $N(",round(((1/b)*(a)+(t*c))/(1/b+t),2),",",round(1/b+t,2),")$ distribution.")
-solutions[[4]] <- paste("We can see that $n=1, \\bar{x}=",c,",d=\\frac{1}{",b,"}, b=",a,",$ and $\\tau=",t," .$ Hence we can calculate $B$ and $D$ with the formulae provided,  $B$=",round(((1/b)*a+t*c)/(1/b+t),2),", and $D$=",round(1/b+t,2),", to 2 d.p. \ Therefore the posterior distribution is $N(",round(((1/b)*a+t*c)/(1/b+t),2),",",round(1/b+t,2),")$.")
-
-questions[[5]] <- paste("It is decided to change the prior to incorporate the constraint $\\mu>",d,".$ Write down the density of the resulting posterior up to proportionality.")
-solutions[[5]] <- paste("The posterior is $\\mu|x \\sim N(",round(((1/b)*a+t*c)/(1/b+t),2),",",round(1/b+t,2),")$. This has density $$\\pi(\\mu|x)\\propto\\begin{cases} \\exp[\\frac{-1}{",2*round(1/b+t,2)^2,"} (\\mu-",round(((1/b)*a+t*c)/(1/b+t),2),"^2)] & \\text{for $\\mu>",d,".$} \\\\
-0, & \\text{otherwise.} \\end{cases}$$")
 ```
 
 Question
 ========
-  Suppose we are researching the temperature (in °C) at a specific location. Let $X$ be the observed temperatures, it is assumed that X has a $N(\mu,\frac{1}{\tau})$ distribution with $\tau=`r t`$.
 
-A local weather expert tells you that a typical temperature in the region is `r a`, and that 95% of the time, the temperature is between `r a-2*sqrt(b)`°C and `r a+2*sqrt(b)`°C. A $N(`r a`,`r sqrt(b)`^2)$ prior distribution is used.
+Suppose we are researching the temperature $X$ (in °C) at a specific location.
+It is assumed that $X \sim N(\mu,\frac{1}{\tau})$ with $\tau=`r t`$.
 
-```{r questionlist, echo = FALSE, results = "asis"}
-answerlist(paste(unlist(questions),  sep = ""), markup = "markdown")
-```
+A local weather expert tells you that a typical temperature in the region is `r a`, and that 95% of the time, the temperature is between `r a-2*sqrt(b)`°C and `r a+2*sqrt(b)`°C.
+Based on this, you choose a $N(`r a`,`r sqrt(b)`^2)$ prior distribution.
 
-Solution
-========
-```{r answerlist, echo = FALSE, results = "asis"}
-answerlist(paste(unlist(solutions)), markup = "markdown")
-```
+1.
+Explain why this prior is a good choice to capture the expert's beliefs.
 
-Meta-information
-================
-  extype: num
-exsolution: 1
-exname: truncated priors
-extol: 0.01
+2.
+Explain why $Exp(\frac{1}{`r a`})$ would be a bad choice of prior.
+
+3.
+Under the prior, $\Pr(\mu>18)=`r round(1-pnorm(18,a,sqrt(b)),4)`$.
+Use this information to come up with a prior refinement question to ask the expert.
+
+4.
+A single observation $x=`r c`$ is made.
+Show that the posterior is a $N(`r round(((1/b)*(a)+(t*c))/(1/b+t),2)`, `r round(1/(1/b+t),2)`)$ distribution.
+
+5.
+It is decided to change the prior to incorporate the constraint $\mu>`r d`$.
+Write down the density of the resulting posterior up to proportionality.

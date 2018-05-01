@@ -1,0 +1,63 @@
+---
+output: html_document
+---
+
+```{r data generation, echo = FALSE, results = "hide"}
+a<-sample(c(14:18),1)
+b<-sample(c(4,9,16),1)
+c<-sample(c(1:20),1)
+d<-sample(c(1:10),1)
+t<-sample(seq(0.1,0.3,length=3),1)
+```
+
+Solution
+========
+
+### Part 1
+
+This distribution's expectation equals the expert's most typical temperature.
+
+Also, a general property of the normal distribution is that $\theta \sim N(a,b^2)$ then $\Pr(a-2b<\theta<a+2b)\approx 0.95$.
+So under the prior, $\Pr(`r a-2*sqrt(b)` < \theta < `r a+2*sqrt(b)`) \approx 0.95$.
+
+Hence the prior matches both pieces of information give by the expert.
+
+### Part 2
+
+Although this distribution has the correct mean, the variance is a lot larger than we would expect given the information from the expert.
+
+### Part 3
+
+"Is it reasonable to expect to see $\mu>18$ about `r round((1-pnorm(18,a,sqrt(b)))*100)` times in a hundred?"
+
+### Part 4
+
+We can see that:
+
+* $n=1$ (number of observations)
+* $\bar{x}=`r c`$ (average observation)
+* $b=`r a`$ (prior mean)
+* $d=\frac{1}{`r b`}$ (prior precision)
+* $\tau=`r t`$ (measurement precision)
+
+Hence we can calculate the posterior mean and precision, $B$ and $D$,
+with the formulae from Example 2.6 of the notes.
+This gives
+$B = `r round(((1/b)*a+t*c)/(1/b+t),2)`$ and $D = `r round(1/b+t,2)`$ to 2 d.p.
+Therefore the posterior distribution is
+$$
+N(`r round(((1/b)*a+t*c)/(1/b+t),2)`,`r round(1/(1/b+t),2)`).
+$$
+
+### Part 5
+
+The original posterior is $\mu|x \sim N(`r round(((1/b)*a+t*c)/(1/b+t),2)`, `r round(1/(1/b+t),2)`)$.
+
+So the truncated posterior has density
+$$
+\pi_T(\mu|x) \propto \begin{cases} \exp \left[
+-`r round((1/b+t)/2,2)` (\mu- `r round(((1/b)*a+t*c)/(1/b+t),2)`^2)
+\right] & \text{for } \mu> `r d` \\
+0 & \text{otherwise}
+\end{cases}
+$$
